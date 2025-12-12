@@ -1,0 +1,107 @@
+# User API Tests
+@baseUrl = http://localhost:3000
+@contentType = application/json
+@email = test@example.com
+@password = TestPassword123
+@username = testuser
+@token = YOUR_USER_TOKEN_HERE
+@httptoken = YOUR_HTTP_USER_TOKEN_HERE
+
+###
+# Sign Up - Send Verification Code
+POST {{baseUrl}}/api/(user)/(sign)/signup/send-code
+Content-Type: {{contentType}}
+
+{
+  "email": "{{email}}"
+}
+
+###
+# Sign Up - Verify Code and Create Account
+POST {{baseUrl}}/api/(user)/(sign)/signup/verify-code
+Content-Type: {{contentType}}
+
+{
+  "username": "{{username}}",
+  "password": "{{password}}",
+  "code": 123456
+}
+
+###
+# Login
+POST {{baseUrl}}/api/(user)/(sign)/login
+Content-Type: {{contentType}}
+
+{
+  "email": "{{email}}",
+  "password": "{{password}}"
+}
+
+###
+# Change Password - Send Verification Code
+POST {{baseUrl}}/api/(user)/(sign)/change-password
+Content-Type: {{contentType}}
+
+{
+  "email": "{{email}}",
+  "password": "{{password}}"
+}
+
+###
+# Change Password - Verify Code and Set New Password
+PUT {{baseUrl}}/api/(user)/(sign)/change-password
+Content-Type: {{contentType}}
+
+{
+  "code": 123456
+}
+
+###
+# Change User Characteristics - Send Verification Code
+POST {{baseUrl}}/api/(user)/profile/change-characteristics
+Cookie: token={{token}}; httpToken={{httptoken}}
+Content-Type: {{contentType}}
+
+{
+  "password": "{{password}}"
+}
+
+###
+# Change User Characteristics - Verify Code and Update Info
+PUT {{baseUrl}}/api/(user)/profile/change-characteristics
+Cookie: token={{token}}; httpToken={{httptoken}}
+Content-Type: {{contentType}}
+
+{
+  "code": "123456",
+  "username": "updatedusername",
+  "newPassword": "NewPassword123"
+}
+
+###
+# Upload Profile Image
+POST {{baseUrl}}/api/(user)/profile/image
+Cookie: token={{token}}; httpToken={{httptoken}}
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="image"; filename="profile.jpg"
+Content-Type: image/jpeg
+
+< ./profile.jpg
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
+
+###
+# Get Profile Image
+GET {{baseUrl}}/api/(user)/profile/image
+Cookie: token={{token}}; httpToken={{httptoken}}
+
+###
+# Get User Purchases
+GET {{baseUrl}}/api/(user)/profile/my-purchases
+Cookie: token={{token}}; httpToken={{httptoken}}
+
+###
+# Logout
+POST {{baseUrl}}/api/(user)/profile/logout
+Cookie: token={{token}}; httpToken={{httptoken}}

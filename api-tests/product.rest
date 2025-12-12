@@ -1,0 +1,72 @@
+# Product API Tests
+@baseUrl = http://localhost:3000
+@contentType = application/json
+@token = YOUR_USER_TOKEN_HERE
+@httptoken = YOUR_HTTP_USER_TOKEN_HERE
+
+###
+# Get all categories
+GET {{baseUrl}}/api/categories
+
+###
+# Get all products
+GET {{baseUrl}}/api/products
+
+###
+# Get products by category ID
+GET {{baseUrl}}/api/products?categoryId=1
+
+###
+# Search products by keyword
+POST {{baseUrl}}/api/products/search-all
+Content-Type: {{contentType}}
+
+{
+  "text": "react"
+}
+
+###
+# Get a specific product by ID
+GET {{baseUrl}}/api/products/1
+
+###
+# Get product comments by product ID
+GET {{baseUrl}}/api/products/comments?productId=1
+
+###
+# Add a new comment to a product
+POST {{baseUrl}}/api/products/comments?productId=1
+Cookie: token={{token}}; httpToken={{httptoken}}
+Content-Type: {{contentType}}
+
+{
+  "message": "عالی بود!",
+  "rating": 5
+}
+
+###
+# Get comment details by comment ID
+GET {{baseUrl}}/api/products/comments/1
+
+###
+# Update a comment
+PUT {{baseUrl}}/api/products/comments/1
+Cookie: token={{token}}; httpToken={{httptoken}}
+Content-Type: {{contentType}}
+
+{
+  "message": "بعد از ویرایش عالی شد!",
+  "star": 4
+}
+
+###
+# Get offer products
+GET {{baseUrl}}/api/products/offers
+
+###
+# Get popular products
+GET {{baseUrl}}/api/products/populars
+
+###
+# Stream a product video
+GET {{baseUrl}}/api/products/videos?filename=test-video.mp4

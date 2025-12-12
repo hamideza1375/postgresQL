@@ -1,0 +1,125 @@
+# Dashboard API Tests
+@baseUrl = http://localhost:3000
+@contentType = application/json
+@token = YOUR_ADMIN_TOKEN_HERE
+@httptoken = YOUR_HTTP_ADMIN_TOKEN_HERE
+
+### 
+# Get all products
+GET {{baseUrl}}/api/dashboard/products/products
+Cookie: token={{token}}; httpToken={{httptoken}}
+
+###
+# Get products by category ID
+GET {{baseUrl}}/api/dashboard/products/products?categoryId=1
+Cookie: token={{token}}; httpToken={{httptoken}}
+
+###
+# Create a new product
+POST {{baseUrl}}/api/dashboard/products/products?categoryId=1
+Cookie: token={{token}}; httpToken={{httptoken}}
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="title"
+
+Test Product
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="price"
+
+10000
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="info"
+
+Test product information
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="description"
+
+Detailed description of the test product
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="time"
+
+60
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="image"; filename="test-image.jpg"
+Content-Type: image/jpeg
+
+< ./test-image.jpg
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="video"; filename="test-video.mp4"
+Content-Type: video/mp4
+
+< ./test-video.mp4
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
+
+###
+# Get pending comments
+GET {{baseUrl}}/api/dashboard/comments
+Cookie: token={{token}}; httpToken={{httptoken}}
+
+###
+# Get categories
+GET {{baseUrl}}/api/dashboard/products/categories
+Cookie: token={{token}}; httpToken={{httptoken}}
+
+###
+# Create a new category
+POST {{baseUrl}}/api/dashboard/products/categories
+Cookie: token={{token}}; httpToken={{httptoken}}
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="title"
+
+Test Category
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="image"; filename="category-image.jpg"
+Content-Type: image/jpeg
+
+< ./category-image.jpg
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
+
+###
+# Get product offer information
+GET {{baseUrl}}/api/dashboard/products/products/offer?productID=1
+Cookie: token={{token}}; httpToken={{httptoken}}
+
+###
+# Update product offer
+PUT {{baseUrl}}/api/dashboard/products/products/offer?productID=1
+Cookie: token={{token}}; httpToken={{httptoken}}
+Content-Type: {{contentType}}
+
+{
+  "exp": 24,
+  "value": 15
+}
+
+###
+# Get product information by ID
+GET {{baseUrl}}/api/dashboard/products/products/1
+Cookie: token={{token}}; httpToken={{httptoken}}
+
+###
+# Update product information
+PUT {{baseUrl}}/api/dashboard/products/products/1
+Cookie: token={{token}}; httpToken={{httptoken}}
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="title"
+
+Updated Product Title
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="price"
+
+15000
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="info"
+
+Updated product information
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="description"
+
+Updated detailed description of the product
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
