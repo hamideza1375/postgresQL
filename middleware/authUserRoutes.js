@@ -1,4 +1,4 @@
-import { UsersModel } from '@/models/UsersModel';
+import UsersModel from '@/models/UsersModel';
 import { decode } from 'jsonwebtoken';
 import { cookies } from 'next/headers';
 

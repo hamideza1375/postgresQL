@@ -156,15 +156,12 @@ Comment.init(
 // مدل Product
 interface ProductAttributes {
   id?: number;
-  times?: number;
   urls?: string;
-  version?: number;
-  progress?: number;
   title: string;
   info: string;
   price: number;
   description: string;
-  imageUrl: string;
+  imageUrl?: string;
   videoUrl?: string;
   categoryId: number;
   popular: boolean;
@@ -214,21 +211,9 @@ Product.init(
       autoIncrement: true,
       primaryKey: true,
     },
-    times: {
-      type: DataTypes.INTEGER,
-      defaultValue: 0,
-    },
     urls: {
       type: DataTypes.STRING,
       allowNull: true,
-    },
-    version: {
-      type: DataTypes.INTEGER,
-      defaultValue: 1,
-    },
-    progress: {
-      type: DataTypes.INTEGER,
-      defaultValue: 0,
     },
     title: {
       type: DataTypes.STRING,

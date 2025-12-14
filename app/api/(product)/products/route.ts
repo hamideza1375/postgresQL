@@ -21,8 +21,6 @@ export async function GET(request: NextRequest) {
                 attributes: {
                     exclude: [
                         'comments',
-                        'parts',
-                        'questions',
                         'stars',
                         'videoUrl',
                         'progress'
@@ -32,7 +30,7 @@ export async function GET(request: NextRequest) {
         } else {
             // جستجوی همه محصولات و مرتب‌سازی بر اساس تاریخ
             products = await ProductsModel.findAll({
-                order: [['data', 'DESC']],
+                order: [['createdAt', 'DESC']],
                 attributes: {
                     exclude: [
                         'comments',

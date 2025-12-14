@@ -7,16 +7,20 @@ import { NextRequest } from 'next/server';
 
 
 
-export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
+// ... existing code ...
+export async function GET(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
     await dbConnect();
-    
+
+    // دریافت id از params با استفاده از await
+    const { id } = await params;
+
     // بررسی وجود id
-    if (!params.id) {
-        return Response.json({});
+    if (!id) {
+        return Response.json({ error: 'شناسه کامنت الزامی است' }, { status: 400 });
     }
     
     // دریافت کامنت بر اساس شناسه
-    const comment = await Comment.findByPk(parseInt(params.id), {
+    const comment = await Comment.findByPk(parseInt(id), {
         attributes: ['message', 'rating']
     });
 
@@ -28,20 +32,23 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
     return Response.json(_comment);
 }
 
-export async function PUT(req: NextRequest, { params }: { params: { id: string } }) {
+export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
     return errorHandling(async () => {
         await dbConnect();
         await authUserRoutes();
 
+        // دریافت id از params با استفاده از await
+        const { id } = await params;
+
         // بررسی وجود id
-        if (!params.id) {
+        if (!id) {
             return Response.json('شناسه کامنت الزامی است', { status: 400 });
         }
 
         const { message, star }: { message: string; star: number } = await req.json();
 
         // یافتن کامنت بر اساس شناسه
-        const comment = await Comment.findByPk(parseInt(params.id));
+        const comment = await Comment.findByPk(parseInt(id));
         
         if (!comment) {
             return Response.json('کامنت یافت نشد', { status: 404 });
@@ -67,7 +74,7 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
             },
             { 
                 where: { 
-                    id: parseInt(params.id) 
+                    id: parseInt(id) 
                 } 
             }
         );
@@ -100,17 +107,20 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
     });
 }
 
-export async function DELETE(req: NextRequest, { params }: { params: { id: string } }) {
+export async function DELETE(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
     return errorHandling(async () => {
         await dbConnect();
 
+        // دریافت id از params با استفاده از await
+        const { id } = await params;
+
         // بررسی وجود id
-        if (!params.id) {
+        if (!id) {
             return Response.json('شناسه کامنت الزامی است', { status: 400 });
         }
 
         // یافتن کامنت بر اساس شناسه
-        const comment = await Comment.findByPk(parseInt(params.id));
+        const comment = await Comment.findByPk(parseInt(id));
         
         if (!comment) {
             return Response.json('کامنت یافت نشد', { status: 404 });
@@ -130,7 +140,7 @@ export async function DELETE(req: NextRequest, { params }: { params: { id: strin
         // حذف کامنت
         await Comment.destroy({
             where: {
-                id: parseInt(params.id)
+                id: parseInt(id)
             }
         });
 

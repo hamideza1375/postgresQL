@@ -44,7 +44,7 @@ export async function POST(req: NextRequest): Promise<Response> {
                 where: {
                     [Op.or]: keywords
                 },
-                attributes: ['imageUrl1', 'title']
+                attributes: ['imageUrl', 'title']
             });
         }
 

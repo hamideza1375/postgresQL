@@ -1,4 +1,4 @@
-import dbConnect from '@/utils/dbConnect';
+import {dbConnect} from '@/utils/dbConnect';
 import fs from 'fs';
 import util from 'util';
 
