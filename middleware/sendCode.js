@@ -91,6 +91,7 @@ export default function sendCode(to = '', path = '') {
             await production_sendCode(to, path);
         } else {
             const cookieStore = await cookies();
+            // cookieStore.delete('code' + to);
 
             if (!cookieStore.get('code' + to)) {
                 cookieStore.set('code' + to, 12345, { maxAge: 180 });

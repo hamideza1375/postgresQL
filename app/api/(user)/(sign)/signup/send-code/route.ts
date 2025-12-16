@@ -20,12 +20,12 @@ export async function POST(req: NextRequest) {
     const cookieStore = await cookies();
 
     // Check if user is already logged in
-    if (cookieStore.get('token') || cookieStore.get('httpToken')) {
-      return NextResponse.json(
-        { message: 'شما در حال حاضر یک حساب فعال دارید' },
-        { status: 429 }
-      );
-    }
+    // if (cookieStore.get('token') || cookieStore.get('httpToken')) {
+    //   return NextResponse.json(
+    //     { message: 'شما در حال حاضر یک حساب فعال دارید' },
+    //     { status: 429 }
+    //   );
+    // }
 
     // Parse request body
     const { email }: RequestBody = await req.json();
@@ -51,10 +51,7 @@ export async function POST(req: NextRequest) {
     console.log('----------------------------------');
     console.log(email);
     console.log('----------------------------------');
-    console.log('----------------------------------');
-    console.log(email);
-    console.log('----------------------------------');
-    
+
 
     // Check resend time limit
     // if (cookieStore.get('ResendTime')) {
@@ -62,8 +59,10 @@ export async function POST(req: NextRequest) {
     //     { message: 'تا اتمام سه دقیقه صبر کنید' },
     //     { status: 429 }
     //   );
-    // } 
+    // }
 
+    
+    
     // Send verification code
     const response: UserExistsResponse = await sendCode(email, req.url);
 

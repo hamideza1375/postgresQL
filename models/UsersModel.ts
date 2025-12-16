@@ -192,27 +192,27 @@ User.init(
 
 // هوک قبل از ذخیره برای هش کردن رمز عبور
 // هوک قبل از ذخیره برای هش کردن رمز عبور
-// User.addHook('beforeSave', async (user: User) => {
-//   if (!user.changed('password')) return;
+User.addHook('beforeSave', async (user: User) => {
+  if (!user.changed('password')) return;
   
-//   // بررسی وجود رمز عبور
-//   if (!user.password || typeof user.password !== 'string') {
-//     throw new Error('Password is required and must be a string');
-//   }
+  // بررسی وجود رمز عبور
+  if (!user.dataValues.password || typeof user.dataValues.password !== 'string') {
+    throw new Error('Password is required and must be a string');
+  }
 
-//   const { N, r, p } = getScryptParams();
-//   const keyLength = 64;
-//   const salt = crypto.randomBytes(16).toString('hex');
+  const { N, r, p } = getScryptParams();
+  const keyLength = 64;
+  const salt = crypto.randomBytes(16).toString('hex');
 
-//   return new Promise<void>((resolve, reject) => {
-//     crypto.scrypt(user.password, salt, keyLength, { N, r, p }, (err, derivedKey) => {
-//       if (err) return reject(err);
+  return new Promise<void>((resolve, reject) => {
+    crypto.scrypt(user.dataValues.password, salt, keyLength, { N, r, p }, (err, derivedKey) => {
+      if (err) return reject(err);
 
-//       user.password = `${salt}:${derivedKey.toString('hex')}`;
-//       resolve();
-//     });
-//   });
-// });
+      user.setDataValue('password', `${salt}:${derivedKey.toString('hex')}`)
+      resolve();
+    });
+  });
+});
 
 // // هوک بعد از ذخیره برای مدیریت خطاهای تکراری بودن
 // User.addHook('afterSave', async (user: User, options: any) => {

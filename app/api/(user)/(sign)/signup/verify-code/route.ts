@@ -31,20 +31,13 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
         const cookieStore = await cookies();
 
         // Check if user is already logged in
-        if (cookieStore.get('token') || cookieStore.get('httpToken')) {
-            return NextResponse.json({ message: 'شما در حال حاضر یک حساب فعال دارید' }, { status: 429 });
-        }
+        // if (cookieStore.get('token') || cookieStore.get('httpToken')) {
+        //     return NextResponse.json({ message: 'شما در حال حاضر یک حساب فعال دارید' }, { status: 429 });
+        // }
 
         // Parse request body
         const body: RequestBody = await req.json();
         const { username, password, code } = body;
-
-        console.log('-------------------------------');
-        console.log('username', username);
-        console.log('password', password)
-        console.log('code', code);
-        console.log('-------------------------------');
-
 
         // Get email from cookie
         const email = cookieStore.get('email')?.value;
@@ -71,26 +64,13 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
             email
         });
 
-        // console.log('------------------');
-        // console.log(1, user);
-        // console.log('------------------');
-
-
         // Set first user as admin
         if (userLength === 0) {
-            user.isAdmin = 1;
+            user.setDataValue('isAdmin', 1)
             await user.save();
         }
 
-            user.isAdmin = 1;
-            await user.save();
 
-
-
-
-        console.log('------------------');
-        console.log('user.id', user.dataValues);
-        console.log('------------------');
 
         // Create JWT tokens
         const forToken: UserToken = {
