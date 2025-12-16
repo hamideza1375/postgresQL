@@ -69,6 +69,9 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
             user.setDataValue('isAdmin', 1)
             await user.save();
         }
+        else {
+            await user.save();
+        }
 
 
 

@@ -1,7 +1,7 @@
 # User API Tests
 @baseUrl = http://localhost:3000
 @contentType = application/json
-@email = test0@example.com
+@email = test1@example.com
 @password = TestPassword123
 @username = testuser
 @token = YOUR_USER_TOKEN_HERE
@@ -35,6 +35,15 @@ Content-Type: {{contentType}}
 {
   "email": "{{email}}",
   "password": "{{password}}"
+}
+
+###
+# Login verify code
+POST {{baseUrl}}/api/login/verify-code
+Content-Type: {{contentType}}
+
+{
+  "code": 12345
 }
 
 ###

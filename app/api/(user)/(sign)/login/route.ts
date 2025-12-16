@@ -5,7 +5,6 @@ import { dbConnect } from '@/utils/dbConnect';
 import jwt from 'jsonwebtoken';
 import { cookies } from 'next/headers';
 import { type NextRequest, NextResponse as res } from 'next/server';
-import { Op } from 'sequelize';
 
 interface RequestBody {
     email: string;
@@ -45,17 +44,18 @@ export async function POST(req: NextRequest) {
         // استفاده از middleware محدودیت نرخ درخواست (Rate Limit)
             // بررسی صحت رمز عبور
             await user.comparePassword(password);
+            
 
             // اگر کاربر ادمین نباشد
-            if (!user.isAdmin) {
+            if (!user.dataValues.isAdmin) {
                 
                 // ایجاد توکن برای کاربر عادی
                 const forUserToken: UserToken = {
                     // ...(user.seller && { sellerId: user.seller.toString() }),
-                    userId: user.id.toString(),
-                    username: user.username,
-                    email: user.email,
-                    products: user.products
+                    userId: user.dataValues.id?.toString(),
+                    username: user.dataValues.username,
+                    email: user.dataValues.email,
+                    products: user.dataValues.products
                 };
 
 

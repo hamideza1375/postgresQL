@@ -44,24 +44,32 @@ class User extends Model<UserAttributes> implements UserAttributes {
 
 
   // متد مقایسه رمز عبور
-  // public async comparePassword(candidatePassword: string): Promise<void> {
-  //   const [salt, hashedPassword] = this.password.split(':');
+  public async comparePassword(candidatePassword: string): Promise<void> {
+    const [salt, hashedPassword] = this.dataValues.password.split(':');
 
-  //   try {
-  //     const derivedKey = await new Promise<string>((resolve, reject) => {
-  //       crypto.scrypt(candidatePassword, salt, keyLength, { N, r, p }, (err, derivedKey) => {
-  //         if (err) reject(err);
-  //         resolve(derivedKey.toString('hex'));
-  //       });
-  //     });
+      console.log('hashedPassword', hashedPassword);
+      console.log('-----------------');
+      console.log('salt', salt);
 
-  //     if (hashedPassword !== derivedKey) {
-  //       throw new CustomError({ message: 'مشخصات وارد شده اشتباه است', status: 400 });
-  //     }
-  //   } catch (err) {
-  //     throw new CustomError({ message: 'خطا در بررسی رمز عبور', status: 500 });
-  //   }
-  // }
+    try {
+      const derivedKey = await new Promise<string>((resolve, reject) => {
+        crypto.scrypt(candidatePassword, salt, keyLength, { N, r, p }, (err, derivedKey) => {
+          if (err) reject(err);
+          resolve(derivedKey.toString('hex'));
+        });
+      });
+
+      console.log('-----------------');
+      console.log('derivedKey', derivedKey);
+      
+
+      if (hashedPassword !== derivedKey) {
+        throw new CustomError({ message: 'مشخصات وارد شده اشتباه است', status: 400 });
+      }
+    } catch (err) {
+      throw new CustomError({ message: 'خطا در بررسی رمز عبور', status: 500 });
+    }
+  }
 }
 
 User.init(

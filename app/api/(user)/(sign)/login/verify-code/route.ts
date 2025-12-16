@@ -29,9 +29,9 @@ export async function POST(req: NextRequest) {
     // دریافت داده‌های ارسالی از کلاینت
     const { code }: RequestBody = await req.json();
 
-    if (cookieStore.get('token') || cookieStore.get('httpToken')) {
-      return Response.json({ message: 'شما در حال حاضر یک حساب فعال دارید' }, { status: 429 });
-  }
+  //   if (cookieStore.get('token') || cookieStore.get('httpToken')) {
+  //     return Response.json({ message: 'شما در حال حاضر یک حساب فعال دارید' }, { status: 429 });
+  // }
 
     // دریافت ایمیل از کوکی
     const email = cookieStore.get('email')?.value;

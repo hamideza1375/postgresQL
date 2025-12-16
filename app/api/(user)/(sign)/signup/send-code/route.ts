@@ -41,12 +41,12 @@ export async function POST(req: NextRequest) {
 
     console.log(email)
 
-    if (user) {
-      return NextResponse.json(
-        { message: 'شما قبلاً ثبت‌نام کرده‌اید' },
-        { status: 400 }
-      );
-    }
+    // if (user) {
+    //   return NextResponse.json(
+    //     { message: 'شما قبلاً ثبت‌نام کرده‌اید' },
+    //     { status: 400 }
+    //   );
+    // }
 
     console.log('----------------------------------');
     console.log(email);
