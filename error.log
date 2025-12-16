@@ -1,3 +1,27 @@
 {"message":"Error: ابتدا وارد حساب خود شوید","file":"unknown","line":"unknown","date":"۱۴۰۴/۹/۲۳"}
 {"message":"Error: ابتدا وارد حساب خود شوید","file":"unknown","line":"unknown","date":"۱۴۰۴/۹/۲۳"}
 {"message":"Error: ابتدا وارد حساب خود شوید","file":"unknown","line":"unknown","date":"۱۴۰۴/۹/۲۳"}
+{"message":"Error: The \"password\" argument must be of type string or an instance of ArrayBuffer, Buffer, TypedArray, or DataView. Received undefined","file":"node:internal/crypto/scrypt","line":"83","date":"۱۴۰۴/۹/۲۳"}
+{"message":"Error: Unexpected token 'e', ...\"\"email\": test@exampl\"... is not valid JSON","file":"unknown","line":"unknown","date":"۱۴۰۴/۹/۲۳"}
+{"message":"Error: Unexpected token 'e', ...\"\"email\": test@exampl\"... is not valid JSON","file":"unknown","line":"unknown","date":"۱۴۰۴/۹/۲۳"}
+{"message":"Error: بعد از اتمام سه دقیقه دوباره امتحان کنید","file":"unknown","line":"unknown","date":"۱۴۰۴/۹/۲۳"}
+{"message":"Error: The \"password\" argument must be of type string or an instance of ArrayBuffer, Buffer, TypedArray, or DataView. Received undefined","file":"node:internal/crypto/scrypt","line":"83","date":"۱۴۰۴/۹/۲۳"}
+{"message":"Error: بعد از اتمام سه دقیقه دوباره امتحان کنید","file":"unknown","line":"unknown","date":"۱۴۰۴/۹/۲۳"}
+{"message":"Error: بعد از اتمام سه دقیقه دوباره امتحان کنید","file":"unknown","line":"unknown","date":"۱۴۰۴/۹/۲۳"}
+{"message":"Error: The \"password\" argument must be of type string or an instance of ArrayBuffer, Buffer, TypedArray, or DataView. Received undefined","file":"node:internal/crypto/scrypt","line":"83","date":"۱۴۰۴/۹/۲۳"}
+{"message":"Error: The \"password\" argument must be of type string or an instance of ArrayBuffer, Buffer, TypedArray, or DataView. Received undefined","file":"node:internal/crypto/scrypt","line":"83","date":"۱۴۰۴/۹/۲۳"}
+{"message":"Error: بعد از اتمام سه دقیقه دوباره امتحان کنید","file":"unknown","line":"unknown","date":"۱۴۰۴/۹/۲۳"}
+{"message":"Error: بعد از اتمام سه دقیقه دوباره امتحان کنید","file":"unknown","line":"unknown","date":"۱۴۰۴/۹/۲۳"}
+{"message":"Error: column \"password\" of relation \"users\" does not exist","file":"C:\\Users\\rezaa\\Desktop\\grafana-next\\.next\\dev\\server\\chunks\\0497d_sequelize_0b037abc._.js","line":"20578","date":"۱۴۰۴/۹/۲۳"}
+{"message":"Error: Cannot read properties of undefined (reading 'toString')","file":"unknown","line":"unknown","date":"۱۴۰۴/۹/۲۳"}
+{"message":"Error: The \"password\" argument must be of type string or an instance of ArrayBuffer, Buffer, TypedArray, or DataView. Received undefined","file":"node:internal/crypto/scrypt","line":"83","date":"۱۴۰۴/۹/۲۳"}
+{"message":"Error: Password is required","file":"C:\\Users\\rezaa\\Desktop\\grafana-next\\.next\\dev\\server\\chunks\\[root-of-the-server]__6f9d4be8._.js","line":"698","date":"۱۴۰۴/۹/۲۳"}
+{"message":"Error: Password is required and must be a string","file":"C:\\Users\\rezaa\\Desktop\\grafana-next\\.next\\dev\\server\\chunks\\[root-of-the-server]__6f9d4be8._.js","line":"698","date":"۱۴۰۴/۹/۲۵"}
+{"message":"Error: Password is required and must be a string","file":"C:\\Users\\rezaa\\Desktop\\grafana-next\\.next\\dev\\server\\chunks\\[root-of-the-server]__6f9d4be8._.js","line":"698","date":"۱۴۰۴/۹/۲۵"}
+{"message":"Error: Password is required and must be a string","file":"C:\\Users\\rezaa\\Desktop\\grafana-next\\.next\\dev\\server\\chunks\\[root-of-the-server]__6f9d4be8._.js","line":"698","date":"۱۴۰۴/۹/۲۵"}
+{"message":"Error: Cannot read properties of undefined (reading 'toString')","file":"unknown","line":"unknown","date":"۱۴۰۴/۹/۲۵"}
+{"message":"Error: Cannot read properties of undefined (reading 'toString')","file":"unknown","line":"unknown","date":"۱۴۰۴/۹/۲۵"}
+{"message":"Error: ایمیل وارد شده صحیح نمیباشد","file":"C:\\Users\\rezaa\\Desktop\\grafana-next\\.next\\dev\\server\\chunks\\0497d_34987774._.js","line":"7233","date":"۱۴۰۴/۹/۲۵"}
+{"message":"Error: ایمیل وارد شده صحیح نمیباشد","file":"C:\\Users\\rezaa\\Desktop\\grafana-next\\.next\\dev\\server\\chunks\\0497d_34987774._.js","line":"7233","date":"۱۴۰۴/۹/۲۵"}
+{"message":"Error: ایمیل وارد شده صحیح نمیباشد","file":"C:\\Users\\rezaa\\Desktop\\grafana-next\\.next\\dev\\server\\chunks\\0497d_34987774._.js","line":"7233","date":"۱۴۰۴/۹/۲۵"}
+{"message":"Error: Cannot read properties of undefined (reading 'toString')","file":"unknown","line":"unknown","date":"۱۴۰۴/۹/۲۵"}

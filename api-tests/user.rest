@@ -1,7 +1,7 @@
 # User API Tests
 @baseUrl = http://localhost:3000
 @contentType = application/json
-@email = test@example.com
+@email = test0@example.com
 @password = TestPassword123
 @username = testuser
 @token = YOUR_USER_TOKEN_HERE
@@ -9,7 +9,7 @@
 
 ###
 # Sign Up - Send Verification Code
-POST {{baseUrl}}/api/(user)/(sign)/signup/send-code
+POST {{baseUrl}}/api/signup/send-code
 Content-Type: {{contentType}}
 
 {
@@ -18,18 +18,18 @@ Content-Type: {{contentType}}
 
 ###
 # Sign Up - Verify Code and Create Account
-POST {{baseUrl}}/api/(user)/(sign)/signup/verify-code
+POST {{baseUrl}}/api/signup/verify-code
 Content-Type: {{contentType}}
 
 {
   "username": "{{username}}",
   "password": "{{password}}",
-  "code": 123456
+  "code": 12345
 }
 
 ###
 # Login
-POST {{baseUrl}}/api/(user)/(sign)/login
+POST {{baseUrl}}/api/login
 Content-Type: {{contentType}}
 
 {
@@ -39,7 +39,7 @@ Content-Type: {{contentType}}
 
 ###
 # Change Password - Send Verification Code
-POST {{baseUrl}}/api/(user)/(sign)/change-password
+POST {{baseUrl}}/api/change-password
 Content-Type: {{contentType}}
 
 {
@@ -49,7 +49,7 @@ Content-Type: {{contentType}}
 
 ###
 # Change Password - Verify Code and Set New Password
-PUT {{baseUrl}}/api/(user)/(sign)/change-password
+PUT {{baseUrl}}/api/change-password
 Content-Type: {{contentType}}
 
 {

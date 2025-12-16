@@ -22,6 +22,9 @@ interface UserAttributes {
   passwordChangedAt?: Date;
 }
 
+const { N, r, p } = getScryptParams();
+const keyLength = 64;
+
 // مدل کاربر
 class User extends Model<UserAttributes> implements UserAttributes {
   public id!: number;
@@ -39,27 +42,26 @@ class User extends Model<UserAttributes> implements UserAttributes {
   public lastLogin!: Date;
   public passwordChangedAt!: Date;
 
+
   // متد مقایسه رمز عبور
-  public async comparePassword(candidatePassword: string): Promise<void> {
-    const [salt, hashedPassword] = this.password.split(':');
-    const { N, r, p } = getScryptParams();
-    const keyLength = 64;
+  // public async comparePassword(candidatePassword: string): Promise<void> {
+  //   const [salt, hashedPassword] = this.password.split(':');
 
-    try {
-      const derivedKey = await new Promise<string>((resolve, reject) => {
-        crypto.scrypt(candidatePassword, salt, keyLength, { N, r, p }, (err, derivedKey) => {
-          if (err) reject(err);
-          resolve(derivedKey.toString('hex'));
-        });
-      });
+  //   try {
+  //     const derivedKey = await new Promise<string>((resolve, reject) => {
+  //       crypto.scrypt(candidatePassword, salt, keyLength, { N, r, p }, (err, derivedKey) => {
+  //         if (err) reject(err);
+  //         resolve(derivedKey.toString('hex'));
+  //       });
+  //     });
 
-      if (hashedPassword !== derivedKey) {
-        throw new CustomError({ message: 'مشخصات وارد شده اشتباه است', status: 400 });
-      }
-    } catch (err) {
-      throw new CustomError({ message: 'خطا در بررسی رمز عبور', status: 500 });
-    }
-  }
+  //     if (hashedPassword !== derivedKey) {
+  //       throw new CustomError({ message: 'مشخصات وارد شده اشتباه است', status: 400 });
+  //     }
+  //   } catch (err) {
+  //     throw new CustomError({ message: 'خطا در بررسی رمز عبور', status: 500 });
+  //   }
+  // }
 }
 
 User.init(
@@ -83,9 +85,9 @@ User.init(
       type: DataTypes.STRING,
       allowNull: false,
       unique: {
-          name: "email_unique",
-          msg: 'ایمیل وارد شده تکراری است'
-        },
+        name: "email_unique",
+        msg: 'ایمیل وارد شده تکراری است'
+      },
       validate: {
         isEmail: {
           msg: 'لطفا یک ایمیل معتبر وارد کنید',
@@ -98,10 +100,10 @@ User.init(
     phone: {
       type: DataTypes.STRING,
       allowNull: true,
-        unique: {
-          name: "phone_unique",
-          msg: 'شماره تماس وارد شده تکراری است'
-        },
+      unique: {
+        name: "phone_unique",
+        msg: 'شماره تماس وارد شده تکراری است'
+      },
       validate: {
         is: {
           args: /^\d{11}$/,
@@ -114,7 +116,7 @@ User.init(
       allowNull: false,
       validate: {
         len: {
-          args: [6,16],
+          args: [6, 16],
           msg: 'رمز عبور باید حداقل ۶ و حد اکثر ۱۶ کارکتر باشد',
         },
         notEmpty: {
@@ -189,27 +191,33 @@ User.init(
 );
 
 // هوک قبل از ذخیره برای هش کردن رمز عبور
-User.addHook('beforeSave', async (user: User) => {
-  if (!user.changed('password')) return;
+// هوک قبل از ذخیره برای هش کردن رمز عبور
+// User.addHook('beforeSave', async (user: User) => {
+//   if (!user.changed('password')) return;
+  
+//   // بررسی وجود رمز عبور
+//   if (!user.password || typeof user.password !== 'string') {
+//     throw new Error('Password is required and must be a string');
+//   }
 
-  const { N, r, p } = getScryptParams();
-  const keyLength = 64;
-  const salt = crypto.randomBytes(16).toString('hex');
+//   const { N, r, p } = getScryptParams();
+//   const keyLength = 64;
+//   const salt = crypto.randomBytes(16).toString('hex');
 
-  return new Promise<void>((resolve, reject) => {
-    crypto.scrypt(user.password, salt, keyLength, { N, r, p }, (err, derivedKey) => {
-      if (err) return reject(err);
+//   return new Promise<void>((resolve, reject) => {
+//     crypto.scrypt(user.password, salt, keyLength, { N, r, p }, (err, derivedKey) => {
+//       if (err) return reject(err);
 
-      user.password = `${salt}:${derivedKey.toString('hex')}`;
-      resolve();
-    });
-  });
-});
+//       user.password = `${salt}:${derivedKey.toString('hex')}`;
+//       resolve();
+//     });
+//   });
+// });
 
-// هوک بعد از ذخیره برای مدیریت خطاهای تکراری بودن
-User.addHook('afterSave', async (user: User, options: any) => {
-  // این هوک فقط برای نمایش نحوه مدیریت خطا اضافه شده است
-  // در عمل، مدیریت خطا در سطح بالاتر انجام می‌شود
-});
+// // هوک بعد از ذخیره برای مدیریت خطاهای تکراری بودن
+// User.addHook('afterSave', async (user: User, options: any) => {
+//   // این هوک فقط برای نمایش نحوه مدیریت خطا اضافه شده است
+//   // در عمل، مدیریت خطا در سطح بالاتر انجام می‌شود
+// });
 
 export default User;

@@ -46,7 +46,7 @@ const dbConnect = async () => {
     // Sync models with the database with force: true to recreate tables
     // This will drop and recreate tables, which solves the column issues
     // In production, you should use migrations instead
-    await sequelize.sync();
+    await sequelize.sync({force: true});
     console.log('Database synchronized successfully.');
     isInitialized = true;
   } catch (error) {

@@ -39,6 +39,13 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
         const body: RequestBody = await req.json();
         const { username, password, code } = body;
 
+        console.log('-------------------------------');
+        console.log('username', username);
+        console.log('password', password)
+        console.log('code', code);
+        console.log('-------------------------------');
+
+
         // Get email from cookie
         const email = cookieStore.get('email')?.value;
 
@@ -52,9 +59,10 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
 
         // Validate input data
         AuthValidator.validateSync({ ...body, email });
-        
+
         // Check number of existing users
         const userLength = await User.count();
+
 
         // Create new user
         const user = await User.create({
@@ -63,18 +71,33 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
             email
         });
 
+        // console.log('------------------');
+        // console.log(1, user);
+        // console.log('------------------');
+
+
         // Set first user as admin
         if (userLength === 0) {
             user.isAdmin = 1;
             await user.save();
         }
 
+            user.isAdmin = 1;
+            await user.save();
+
+
+
+
+        console.log('------------------');
+        console.log('user.id', user.dataValues);
+        console.log('------------------');
+
         // Create JWT tokens
         const forToken: UserToken = {
-            userId: user.id.toString(),
-            username: user.username,
-            email: user.email,
-            products: user.products
+            userId: user.dataValues.id?.toString(),
+            username: user.dataValues.username,
+            email: user.dataValues.email,
+            products: user.dataValues.products
         };
 
         const token = (secret: string): string => jwt.sign(forToken, secret);

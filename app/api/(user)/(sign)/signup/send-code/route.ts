@@ -48,13 +48,21 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    console.log('----------------------------------');
+    console.log(email);
+    console.log('----------------------------------');
+    console.log('----------------------------------');
+    console.log(email);
+    console.log('----------------------------------');
+    
+
     // Check resend time limit
-    if (cookieStore.get('ResendTime')) {
-      return NextResponse.json(
-        { message: 'تا اتمام سه دقیقه صبر کنید' },
-        { status: 429 }
-      );
-    }
+    // if (cookieStore.get('ResendTime')) {
+    //   return NextResponse.json(
+    //     { message: 'تا اتمام سه دقیقه صبر کنید' },
+    //     { status: 429 }
+    //   );
+    // } 
 
     // Send verification code
     const response: UserExistsResponse = await sendCode(email, req.url);
