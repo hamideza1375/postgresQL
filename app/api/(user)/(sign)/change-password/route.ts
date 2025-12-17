@@ -118,7 +118,7 @@ export async function PUT(req: NextRequest): Promise<NextResponse> {
       );
     }
 
-    user.password = newPassword;
+    user.setDataValue('password', newPassword);
     await user.save();
 
     // Clean up cookies

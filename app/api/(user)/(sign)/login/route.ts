@@ -29,6 +29,12 @@ export async function POST(req: NextRequest) {
         const body: RequestBody = await req.json();
         const { email, password } = body;
 
+        const usera = await User.findAll()
+
+        console.log('usera', usera);
+        
+
+
         // جستجوی کاربر در دیتابیس بر اساس ایمیل
         const user = await User.findOne({ 
             where: {
@@ -45,7 +51,6 @@ export async function POST(req: NextRequest) {
             // بررسی صحت رمز عبور
             await user.comparePassword(password);
             
-
             // اگر کاربر ادمین نباشد
             if (!user.dataValues.isAdmin) {
                 

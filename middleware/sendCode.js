@@ -91,9 +91,10 @@ export default function sendCode(to = '', path = '') {
             await production_sendCode(to, path);
         } else {
             const cookieStore = await cookies();
-            // cookieStore.delete('code' + to);
 
-            if (!cookieStore.get('code' + to)) {
+            cookieStore.delete('code' + to);
+
+            if (!cookieStore.get('code' + to)?.value) {
                 cookieStore.set('code' + to, 12345, { maxAge: 180 });
                 resolve({ message: '12345 را به عنوان کد وارد کنید' });
             } else {

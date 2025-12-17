@@ -49,7 +49,6 @@ class User extends Model<UserAttributes> implements UserAttributes {
 
       console.log('hashedPassword', hashedPassword);
       console.log('-----------------');
-      console.log('salt', salt);
 
     try {
       const derivedKey = await new Promise<string>((resolve, reject) => {

@@ -28,7 +28,7 @@ import { NextResponse } from 'next/server';
  * }
  */
 
-export default async function rateLimit(path='',call) {
+ async function rateLimit(path='',call) {
     return errorHandling(async()=>{
         // دریافت کوکی‌ها
         const cookieStore = await cookies();
@@ -63,3 +63,16 @@ export default async function rateLimit(path='',call) {
         return await call();
     })
 }
+
+
+
+
+async function d_rateLimit(path='',call) {
+    return errorHandling(async()=>{
+        return await call();
+    })
+}
+
+const isProduction = process.env.NODE_ENV === 'production';
+
+export default (isProduction?  rateLimit:  d_rateLimit)

@@ -1,8 +1,9 @@
 # User API Tests
 @baseUrl = http://localhost:3000
 @contentType = application/json
-@email = test1@example.com
+@email = test@example.com
 @password = TestPassword123
+@changePassword = TestPassword12345
 @username = testuser
 @token = YOUR_USER_TOKEN_HERE
 @httptoken = YOUR_HTTP_USER_TOKEN_HERE
@@ -53,7 +54,7 @@ Content-Type: {{contentType}}
 
 {
   "email": "{{email}}",
-  "password": "{{password}}"
+  "password": "{{changePassword}}"
 }
 
 ###
@@ -62,7 +63,7 @@ PUT {{baseUrl}}/api/change-password
 Content-Type: {{contentType}}
 
 {
-  "code": 123456
+  "code": 12345
 }
 
 ###
