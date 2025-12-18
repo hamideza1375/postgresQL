@@ -12,7 +12,7 @@ interface RequestBody {
 }
 
 interface UserToken {
-    userId?: string;
+    userId?: number;
     username?: string;
     email: string;
     products?: any[];
@@ -57,7 +57,7 @@ export async function POST(req: NextRequest) {
                 // ایجاد توکن برای کاربر عادی
                 const forUserToken: UserToken = {
                     // ...(user.seller && { sellerId: user.seller.toString() }),
-                    userId: user.dataValues.id?.toString(),
+                    userId: user.dataValues.id,
                     username: user.dataValues.username,
                     email: user.dataValues.email,
                     products: user.dataValues.products
@@ -75,7 +75,8 @@ export async function POST(req: NextRequest) {
                     { status: 200,
                         headers: {
                             // اضافه کردن توکن به هدر
-                            Authorization: `Bearer ${token}`,
+                            // Authorization: `Bearer ${token}`,
+                            Authorization: `${token}`,
                         }
                      }
                 );

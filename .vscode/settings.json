@@ -1,7 +1,8 @@
 {
     "rest-client.environmentVariables": {
         "$shared": {
-            "auth_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc0FkbWluIjoxLCJ1c2VySWQiOiIxIiwiZnVsbG5hbWUiOiJUZXN0IFVzZXIiLCJlbWFpbCI6InRlc3QyQGV4YW1wbGUuY29tIiwiaWF0IjoxNzY0MTc5NzQ1LCJleHAiOjQzNTYxNzk3NDV9.Yf7MED5A5McuW_IJPZhtBhJqbqZpafkGb_gM241QqcE",
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc0FkbWluIjp0cnVlLCJ1c2VySWQiOiJ0ZXN0QGV4YW1wbGUuY29tIiwidXNlcm5hbWUiOiJ0ZXN0QGV4YW1wbGUuY29tIiwiZW1haWwiOiJ0ZXN0QGV4YW1wbGUuY29tIiwicHJvZHVjdHMiOltdLCJpYXQiOjE3NjU5NzcyNTZ9.6pxaRqDDTiBx1WoiLSVN2uLm36dL7PjIkrmKWrz2t1o.eyJpc0FkbWluIjoxLCJ1c2VySWQiOiIxIiwiZnVsbG5hbWUiOiJUZXN0IFVzZXIiLCJlbWFpbCI6InRlc3QyQGV4YW1wbGUuY29tIiwiaWF0IjoxNzY0MTc5NzQ1LCJleHAiOjQzNTYxNzk3NDV9.Yf7MED5A5McuW_IJPZhtBhJqbqZpafkGb_gM241QqcE",
+            "httptoken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc0FkbWluIjp0cnVlLCJ1c2VySWQiOiJ0ZXN0QGV4YW1wbGUuY29tIiwidXNlcm5hbWUiOiJ0ZXN0QGV4YW1wbGUuY29tIiwiZW1haWwiOiJ0ZXN0QGV4YW1wbGUuY29tIiwicHJvZHVjdHMiOltdLCJpYXQiOjE3NjU5NzcyNTZ9.6pxaRqDDTiBx1WoiLSVN2uLm36dL7PjIkrmKWrz2t1o.eyJpc0FkbWluIjoxLCJ1c2VySWQiOiIxIiwiZnVsbG5hbWUiOiJUZXN0IFVzZXIiLCJlbWFpbCI6InRlc3QyQGV4YW1wbGUuY29tIiwiaWF0IjoxNzY0MTc5NzQ1LCJleHAiOjQzNTYxNzk3NDV9.Yf7MED5A5McuW_IJPZhtBhJqbqZpafkGb_gM241QqcE",
             "category_id": "6617df16b82cceb8db61a25b",
             "product_id": "6617df16b82cceb8db61a25b",
             "part_id": "6617df16b82cceb8db61a25b",

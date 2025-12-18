@@ -31,7 +31,7 @@ export default async function authAdminRoutes() {
         // بررسی دسترسی ادمین
         if (!user.payload.isAdmin || !httpUser.payload.isAdmin) reject({ message: 'شما اجازه ی دسترسی ندارید', status: 403 });
         // یافتن کاربر در پایگاه داده
-        const UserModel = await UsersModel.findById(httpUser.payload.userId);
+        const UserModel = await UsersModel.findByPk(httpUser.payload.userId);
         // بررسی دسترسی ادمین در پایگاه داده
         if (!UserModel?.isAdmin) reject({ message: 'شما اجازه ی دسترسی ندارید', status: 403 });
         // تایید دسترسی

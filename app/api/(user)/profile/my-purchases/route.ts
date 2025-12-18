@@ -29,7 +29,7 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
         const lastPayment = await PaymentsModel.findAll({ 
             where: {
                 success: true, 
-                userId: _user.userId
+                userId: Number(_user.userId)
             },
             order: [['createdAt', 'DESC']]
         });

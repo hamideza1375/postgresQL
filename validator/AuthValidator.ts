@@ -3,13 +3,13 @@ import * as Yup from "yup";
 export const AuthValidator = Yup.object().shape({
     username: Yup.string().required(),
     email: Yup.string().email('ایمیل وارد شده صحیح نمیباشد').required('ایمیل خود را وارد کنید'),
-    password: Yup.string().min(6,'رمز ورود نباید کوچکتر از 6 کارکتر باشد').max(20, 'رمز ورود نباید بزرگ تر از ۲۰ کارکتر باشد').required(),
+    password: Yup.string().min(6,'رمز ورود نباید کوچکتر از 6 کارکتر باشد').max(16, 'رمز ورود نباید بزرگ تر از ۱۶ کارکتر باشد').required(),
 });
 
 
 export const ChangePasswordValidator = Yup.object().shape({
     email: Yup.string().email('ایمیل وارد شده صحیح نمیباشد').required('ایمیل خود را وارد کنید'),
-    password: Yup.string().min(6,'رمز ورود نباید کوچکتر از 6 کارکتر باشد').max(20, 'رمز ورود نباید بزرگ تر از ۲۰ کارکتر باشد').required(),
+    password: Yup.string().min(6,'رمز ورود نباید کوچکتر از 6 کارکتر باشد').max(16, 'رمز ورود نباید بزرگ تر از ۱۶ کارکتر باشد').required(),
 });
 
 

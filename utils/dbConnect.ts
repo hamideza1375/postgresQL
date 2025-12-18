@@ -33,6 +33,7 @@ const sequelize = new Sequelize(
 );
 
 // Ensure database is initialized
+// Ensure database is initialized
 let isInitialized = false;
 const dbConnect = async () => {
   if (isInitialized || typeof window !== 'undefined') {
@@ -43,10 +44,17 @@ const dbConnect = async () => {
     await sequelize.authenticate();
     console.log('Connection to the database has been established successfully.');
 
-    // Sync models with the database with force: true to recreate tables
-    // This will drop and recreate tables, which solves the column issues
-    // In production, you should use migrations instead
-    await sequelize.sync({force: true});
+    // Sync models with the database
+    // In development: use { alter: true } to update table structure without dropping data
+    // In production: use migrations instead of sync
+    if (process.env.NODE_ENV === 'production') {
+      // In production, you should use migrations
+      await sequelize.sync();
+    } else {
+      // In development, use alter to update tables without losing data
+      await sequelize.sync({ alter: true });
+    }
+    
     console.log('Database synchronized successfully.');
     isInitialized = true;
   } catch (error) {

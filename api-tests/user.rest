@@ -3,10 +3,10 @@
 @contentType = application/json
 @email = test@example.com
 @password = TestPassword123
-@changePassword = TestPassword12345
+@changePassword = TestPassword123
 @username = testuser
-@token = YOUR_USER_TOKEN_HERE
-@httptoken = YOUR_HTTP_USER_TOKEN_HERE
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc0FkbWluIjoxLCJ1c2VySWQiOjEwLCJ1c2VybmFtZSI6InRlc3R1c2VyIiwiZW1haWwiOiJ0ZXN0QGV4YW1wbGUuY29tIiwicHJvZHVjdHMiOltdLCJpYXQiOjE3NjYwNzA5OTh9.JxLezpj-I8v0FFRqFdUN9A62yG9h7Xstuewh75xl7uY
+@httptoken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc0FkbWluIjoxLCJ1c2VySWQiOjEwLCJ1c2VybmFtZSI6InRlc3R1c2VyIiwiZW1haWwiOiJ0ZXN0QGV4YW1wbGUuY29tIiwicHJvZHVjdHMiOltdLCJpYXQiOjE3NjYwNzA5OTh9.JxLezpj-I8v0FFRqFdUN9A62yG9h7Xstuewh75xl7uY
 
 ###
 # Sign Up - Send Verification Code
@@ -44,7 +44,7 @@ POST {{baseUrl}}/api/login/verify-code
 Content-Type: {{contentType}}
 
 {
-  "code": 12345
+  "code": "12345"
 }
 
 ###
@@ -68,7 +68,7 @@ Content-Type: {{contentType}}
 
 ###
 # Change User Characteristics - Send Verification Code
-POST {{baseUrl}}/api/(user)/profile/change-characteristics
+POST {{baseUrl}}/api/profile/change-characteristics
 Cookie: token={{token}}; httpToken={{httptoken}}
 Content-Type: {{contentType}}
 
@@ -78,40 +78,40 @@ Content-Type: {{contentType}}
 
 ###
 # Change User Characteristics - Verify Code and Update Info
-PUT {{baseUrl}}/api/(user)/profile/change-characteristics
+PUT {{baseUrl}}/api/profile/change-characteristics
 Cookie: token={{token}}; httpToken={{httptoken}}
 Content-Type: {{contentType}}
 
 {
-  "code": "123456",
+  "code": "12345",
   "username": "updatedusername",
-  "newPassword": "NewPassword123"
+  "newPassword": "{{{{changePassword}}}}"
 }
 
 ###
 # Upload Profile Image
-POST {{baseUrl}}/api/(user)/profile/image
+POST {{baseUrl}}/api/profile/image
 Cookie: token={{token}}; httpToken={{httptoken}}
 Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
 
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
-Content-Disposition: form-data; name="image"; filename="profile.jpg"
+Content-Disposition: form-data; name="image"; filename="image.png"
 Content-Type: image/jpeg
 
-< ./profile.jpg
+< public/image.png
 ------WebKitFormBoundary7MA4YWxkTrZu0gW--
 
 ###
 # Get Profile Image
-GET {{baseUrl}}/api/(user)/profile/image
+GET {{baseUrl}}/api/profile/image
 Cookie: token={{token}}; httpToken={{httptoken}}
 
 ###
 # Get User Purchases
-GET {{baseUrl}}/api/(user)/profile/my-purchases
+GET {{baseUrl}}/api/profile/my-purchases
 Cookie: token={{token}}; httpToken={{httptoken}}
 
 ###
 # Logout
-POST {{baseUrl}}/api/(user)/profile/logout
+POST {{baseUrl}}/api/profile/logout
 Cookie: token={{token}}; httpToken={{httptoken}}

@@ -88,7 +88,6 @@ export default async function errorHandling(call) {
 
         // نمایش خطا در کنسول به صورت رنگی
         console.error(errorMessage(error.message));
-        console.error(errorMessage(error));
 
         // بررسی وجود حروف فارسی در پیام خطا و ارسال پاسخ مناسب
         if (hasPersianLetters(error?.message)) {

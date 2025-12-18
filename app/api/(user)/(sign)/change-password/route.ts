@@ -31,12 +31,12 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     const cookieStore = await cookies();
     
     // Check if resend time is still active
-    if (cookieStore.get('ResendTime')) {
-      return Response.json(
-        { message: 'تا اتمام سه دقیقه صبر کنید' }, 
-        { status: 429 }
-      );
-    }
+    // if (cookieStore.get('ResendTime')) {
+    //   return Response.json(
+    //     { message: 'تا اتمام سه دقیقه صبر کنید' }, 
+    //     { status: 429 }
+    //   );
+    // }
 
     const { email, password }: PostRequestBody = await req.json();
     await ChangePasswordValidator.validate({ email, password })
@@ -120,6 +120,7 @@ export async function PUT(req: NextRequest): Promise<NextResponse> {
 
     user.setDataValue('password', newPassword);
     await user.save();
+
 
     // Clean up cookies
     cookieStore.delete('email');

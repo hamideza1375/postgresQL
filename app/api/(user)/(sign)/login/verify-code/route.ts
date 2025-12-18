@@ -5,6 +5,7 @@ import { NextResponse as res, type NextRequest } from 'next/server';
 import errorHandling from '@/middleware/errorHandling';
 import { checkCode } from '@/middleware/sendCode';
 import { dbConnect } from '@/utils/dbConnect';
+import User from '@/models/UsersModel';
 
 // Define interfaces for better type safety
 type RequestBody = {
@@ -12,8 +13,8 @@ type RequestBody = {
 }
 
 interface TokenPayload {
-  isAdmin: boolean;
-  userId: string;
+  isAdmin: number;
+  userId: any;
   username: string;
   email: string;
   products: any[];
@@ -29,9 +30,9 @@ export async function POST(req: NextRequest) {
     // دریافت داده‌های ارسالی از کلاینت
     const { code }: RequestBody = await req.json();
 
-  //   if (cookieStore.get('token') || cookieStore.get('httpToken')) {
-  //     return Response.json({ message: 'شما در حال حاضر یک حساب فعال دارید' }, { status: 429 });
-  // }
+    //   if (cookieStore.get('token') || cookieStore.get('httpToken')) {
+    //     return Response.json({ message: 'شما در حال حاضر یک حساب فعال دارید' }, { status: 429 });
+    // }
 
     // دریافت ایمیل از کوکی
     const email = cookieStore.get('email')?.value;
@@ -39,7 +40,7 @@ export async function POST(req: NextRequest) {
     // اگر ایمیل وجود نداشته باشد، خطا بازگردانده شود
     if (!email) {
       return res.json(
-        { message: 'لطفاً ابتدا کد تأیید را دریافت کنید' }, 
+        { message: 'لطفاً ابتدا کد تأیید را دریافت کنید' },
         { status: 400 }
       );
     }
@@ -49,12 +50,27 @@ export async function POST(req: NextRequest) {
     await checkCode(email, code);
 
 
+    const user = await User.findOne({
+      where: {
+        email: email
+      }
+    });
+
+
+    if (!user) {
+      return res.json(
+        { message: 'لطفاً ابتدا کد تأیید را دریافت کنید' },
+        { status: 400 }
+      );
+    }
+
+
     // ایجاد توکن برای مدیر
     const forToken: TokenPayload = {
-      isAdmin: true,
-      userId: email,
-      username: email,
-      email: email,
+      isAdmin: 1,
+      userId: user.dataValues.id,
+      username: user.dataValues.username as string,
+      email,
       products: []
     };
 
@@ -64,19 +80,22 @@ export async function POST(req: NextRequest) {
     // Create response
     const response = res.json(
       { message: {} },
-      { status: 200, headers: {
-        // اضافه کردن توکن به هدر
-        Authorization: `Bearer ${token}`,
-    } }
+      {
+        status: 200, headers: {
+          // اضافه کردن توکن به هدر
+          Authorization: `${token}`,
+          // Authorization: `Bearer ${token}`,
+        }
+      }
     );
 
     // Set cookies on the response
-    response.cookies.set('token', token, { 
-      maxAge: 60 * 60 * 24 * 30 
+    response.cookies.set('token', token, {
+      maxAge: 60 * 60 * 24 * 30
     });
-    response.cookies.set('httpToken', httpToken, { 
+    response.cookies.set('httpToken', httpToken, {
       maxAge: 60 * 60 * 24 * 30,
-      httpOnly: true 
+      httpOnly: true
     });
 
     cookieStore.delete('email')

@@ -47,8 +47,8 @@ class User extends Model<UserAttributes> implements UserAttributes {
   public async comparePassword(candidatePassword: string): Promise<void> {
     const [salt, hashedPassword] = this.dataValues.password.split(':');
 
-      console.log('hashedPassword', hashedPassword);
-      console.log('-----------------');
+    console.log('hashedPassword', hashedPassword);
+    console.log('-----------------');
 
     try {
       const derivedKey = await new Promise<string>((resolve, reject) => {
@@ -60,7 +60,7 @@ class User extends Model<UserAttributes> implements UserAttributes {
 
       console.log('-----------------');
       console.log('derivedKey', derivedKey);
-      
+
 
       if (hashedPassword !== derivedKey) {
         throw new CustomError({ message: 'مشخصات وارد شده اشتباه است', status: 400 });
@@ -77,14 +77,20 @@ User.init(
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
+      // type: DataTypes.UUID,
+      // defaultValue: DataTypes.UUIDV4
     },
     username: {
       type: DataTypes.STRING,
       allowNull: true,
       validate: {
+        notIn: {
+          args: [['admin', 'root', 'administrator', 'superuser', 'supervisor', 'moderator']],
+          msg: 'این نام کاربری مجاز نیست'
+        },
         len: {
-          args: [3, 12],
-          msg: 'نام کاربری باید حداقل ۳ و حداکثر ۱۲ کاراکتر باشد',
+          args: [3, 16],
+          msg: 'نام کاربری باید حداقل ۳ و حداکثر ۱۶ کاراکتر باشد',
         },
       },
     },
@@ -122,10 +128,6 @@ User.init(
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        len: {
-          args: [6, 16],
-          msg: 'رمز عبور باید حداقل ۶ و حد اکثر ۱۶ کارکتر باشد',
-        },
         notEmpty: {
           msg: 'رمز عبور الزامی است',
         },
@@ -201,7 +203,7 @@ User.init(
 // هوک قبل از ذخیره برای هش کردن رمز عبور
 User.addHook('beforeSave', async (user: User) => {
   if (!user.changed('password')) return;
-  
+
   // بررسی وجود رمز عبور
   if (!user.dataValues.password || typeof user.dataValues.password !== 'string') {
     throw new Error('Password is required and must be a string');

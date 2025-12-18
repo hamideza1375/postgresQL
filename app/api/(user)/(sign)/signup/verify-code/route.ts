@@ -19,7 +19,7 @@ interface Products {
 }
 
 interface UserToken {
-    userId?: string;
+    userId?: number;
     username?: string;
     email: string;
     products?: Products[];
@@ -77,7 +77,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
 
         // Create JWT tokens
         const forToken: UserToken = {
-            userId: user.dataValues.id?.toString(),
+            userId: user.dataValues.id,
             username: user.dataValues.username,
             email: user.dataValues.email,
             products: user.dataValues.products
@@ -94,7 +94,8 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
                 status: 201,
                 headers: {
                     // اضافه کردن توکن به هدر
-                    Authorization: `Bearer ${token('token')}`,
+                    Authorization: `${token('token')}`,
+                    // Authorization: `Bearer ${token('token')}`,
                 }
             }
         );

@@ -24,36 +24,15 @@ interface RequestBodyPUT {
 }
 
 interface UserToken {
-    userId?: string;
+    userId?: number;
     username?: string;
     email: string;
     products?: any[];
 }
 
 
-const { N, r, p } = getScryptParams();
-const keyLength = 64; // طول کلید هش شده (بر حسب بایت)
-
-
-const compare = async function (bodyPassword: string, userPassword: string): Promise<boolean> {
-    const [salt, hashedPassword] = userPassword.split(':'); // جدا کردن سالت و هش ذخیره شده
-    try {
-        const derivedKey = await new Promise<string>((resolve, reject) => {
-            crypto.scrypt(bodyPassword, salt, keyLength, { N, r, p }, (err, derivedKey) => {
-                if (err) reject(err);
-                resolve(derivedKey.toString('hex'));
-            });
-        });
-
-        return hashedPassword === derivedKey
-
-    } catch (err) {
-        throw new CustomError({ message: 'خطا در بررسی رمز عبور', status: 500 }); // استفاده از کلاس خطای سفارشی
-    }
-};
-
 /**
- * در این تابع، کاربر می تواند از طریق ایمیل خود و گذرواژه جدید، مشخصات خود را تغییر دهد
+ * در این ای‌پی‌آی کاربر می تواند از طریق ایمیل خود و گذرواژه جدید، مشخصات خود را تغییر دهد
  */
 export async function POST(req: NextRequest): Promise<NextResponse> {
     return rateLimit(req.url, async (): Promise<NextResponse> => {
@@ -82,10 +61,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
         }
 
         // بررسی گذرواژه قبلی کاربر
-        const confirmPass = await compare(body.password, user.password);
-        if (!confirmPass) {
-            return NextResponse.json('رمز عبور قبلی را صحیح وارد کنید', { status: 400 });
-        }
+         await user.comparePassword(body.password);
 
         // ارسال کد
         const response = await sendCode(_user.email, req.url);
@@ -126,15 +102,15 @@ export async function PUT(req: NextRequest): Promise<NextResponse> {
         }
 
         // بروزرسانی اطلاعات کاربر
-        user.username = username;
-        user.password = newPassword;
+        user.setDataValue('username', username)
+        user.setDataValue('password', newPassword)
         await user.save();
 
         const forUserToken: UserToken = {
-            userId: user.id.toString(),
-            username: user.username,
-            email: user.email,
-            products: user.products
+            userId: user.dataValues.id,
+            username: user.dataValues.username,
+            email: user.dataValues.email,
+            products: user.dataValues.products
         };
 
         // ایجاد توکن اصلی برای کوکی
@@ -157,6 +133,9 @@ export async function PUT(req: NextRequest): Promise<NextResponse> {
 
         // حذف کد از کد
         cache.del('code' + user.email);
+
+        await checkCode(_user.email, code);
+        
 
         // ارسال پاسخ
         return NextResponse.json({ value: token, message: {} }, { status: 201 });
