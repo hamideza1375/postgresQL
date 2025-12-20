@@ -61,7 +61,7 @@ export async function POST(request: NextRequest) {
         // به روز رسانی امتیازات محصول
         const comments = await Comment.findAndCountAll({
             where: {
-                productId: productId
+                productId
             }
         });
         

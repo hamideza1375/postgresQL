@@ -1,8 +1,8 @@
 # Product API Tests
 @baseUrl = http://localhost:3000
 @contentType = application/json
-@token = YOUR_USER_TOKEN_HERE
-@httptoken = YOUR_HTTP_USER_TOKEN_HERE
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc0FkbWluIjoxLCJ1c2VySWQiOjEwLCJ1c2VybmFtZSI6InRlc3R1c2VyIiwiZW1haWwiOiJ0ZXN0QGV4YW1wbGUuY29tIiwicHJvZHVjdHMiOltdLCJpYXQiOjE3NjYwNzA5OTh9.JxLezpj-I8v0FFRqFdUN9A62yG9h7Xstuewh75xl7uY
+@httptoken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc0FkbWluIjoxLCJ1c2VySWQiOjEwLCJ1c2VybmFtZSI6InRlc3R1c2VyIiwiZW1haWwiOiJ0ZXN0QGV4YW1wbGUuY29tIiwicHJvZHVjdHMiOltdLCJpYXQiOjE3NjYwNzA5OTh9.JxLezpj-I8v0FFRqFdUN9A62yG9h7Xstuewh75xl7uY
 
 ###
 # Get all categories

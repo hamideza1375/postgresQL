@@ -21,6 +21,7 @@ interface ProductFormData {
 // تابع برای مدیریت درخواست POST
 export async function POST(req: NextRequest): Promise<NextResponse> {
     try {
+        
         // اتصال به دیتابیس
         await dbConnect();
         await authAdminRoutes();
@@ -29,7 +30,8 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
 
         // دریافت داده‌های فرم از درخواست
         const formdata = await req.formData();
-        const { image, video, title, price, info, description, time } = Object.fromEntries(formdata.entries()) as unknown as ProductFormData;
+        const { image, video, title, price, info, description } = Object.fromEntries(formdata.entries()) as unknown as ProductFormData;
+
 
         if (!image || !video) {
             return NextResponse.json({ error: 'No files received.', status: 400 }, { status: 400 });
@@ -42,7 +44,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
         // تبدیل ویدیو به بافر و ایجاد نام فایل
         const videoBuffer = Buffer.from(await video.arrayBuffer());
         const videoFilenameSplit = video.name.split('.');
-        const videoFilename = `${videoFilenameSplit[0]}_1_0_.${videoFilenameSplit[1]}`;
+        const videoFilename = `${Date.now().toString(32) + videoFilenameSplit[0]}_1_0_.${videoFilenameSplit[videoFilenameSplit.length -1]}`;
 
         // ذخیره فایل‌ها در مسیر مشخص شده
         writeFileSync(path.join(process.cwd(), `assets/uploads/product/${filename}`), buffer);
@@ -56,10 +58,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
             description: description,
             imageUrl: filename,
             videoUrl: videoFilename,
-            times: Number(time) > 0 ? Number(time) : 300,
             categoryId: Number(categoryId),
-            version: 1,
-            progress: 0,
             stock: 0,
             rating: 1,
             ratings: 1,
@@ -78,8 +77,12 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
 // تابع برای مدیریت درخواست GET
 export async function GET(req: NextRequest): Promise<NextResponse> {
     try {
+
+        
         await dbConnect();
         await authAdminRoutes();
+        console.log('tst-apitst-apitst-api');
+        console.log('tst-apitst-apitst-api');
 
         const categoryId = req.nextUrl.searchParams.get('categoryId');
 

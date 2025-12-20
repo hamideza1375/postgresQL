@@ -1,8 +1,31 @@
 # Dashboard API Tests
 @baseUrl = http://localhost:3000
 @contentType = application/json
-@token = YOUR_ADMIN_TOKEN_HERE
-@httptoken = YOUR_HTTP_ADMIN_TOKEN_HERE
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc0FkbWluIjoxLCJ1c2VySWQiOjEwLCJ1c2VybmFtZSI6InRlc3R1c2VyIiwiZW1haWwiOiJ0ZXN0QGV4YW1wbGUuY29tIiwicHJvZHVjdHMiOltdLCJpYXQiOjE3NjYwNzA5OTh9.JxLezpj-I8v0FFRqFdUN9A62yG9h7Xstuewh75xl7uY
+@httptoken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc0FkbWluIjoxLCJ1c2VySWQiOjEwLCJ1c2VybmFtZSI6InRlc3R1c2VyIiwiZW1haWwiOiJ0ZXN0QGV4YW1wbGUuY29tIiwicHJvZHVjdHMiOltdLCJpYXQiOjE3NjYwNzA5OTh9.JxLezpj-I8v0FFRqFdUN9A62yG9h7Xstuewh75xl7uY
+
+###
+# Get categories
+GET {{baseUrl}}/api/dashboard/products/categories
+Cookie: token={{token}}; httpToken={{httptoken}}
+
+###
+# Create a new category
+POST {{baseUrl}}/api/dashboard/products/categories
+Cookie: token={{token}}; httpToken={{httptoken}}
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="title"
+
+Test Category2
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="image"; filename="category-image.png"
+Content-Type: image/png
+
+< ./public/image.png
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
+
 
 ### 
 # Get all products
@@ -42,14 +65,14 @@ Content-Disposition: form-data; name="time"
 60
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
 Content-Disposition: form-data; name="image"; filename="test-image.jpg"
-Content-Type: image/jpeg
+Content-Type: image/png
 
-< ./test-image.jpg
+< ./public/image.png
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
 Content-Disposition: form-data; name="video"; filename="test-video.mp4"
 Content-Type: video/mp4
 
-< ./test-video.mp4
+< ./public/video.mp4
 ------WebKitFormBoundary7MA4YWxkTrZu0gW--
 
 ###
@@ -57,36 +80,15 @@ Content-Type: video/mp4
 GET {{baseUrl}}/api/dashboard/comments
 Cookie: token={{token}}; httpToken={{httptoken}}
 
-###
-# Get categories
-GET {{baseUrl}}/api/dashboard/products/categories
-Cookie: token={{token}}; httpToken={{httptoken}}
-
-###
-# Create a new category
-POST {{baseUrl}}/api/dashboard/products/categories
-Cookie: token={{token}}; httpToken={{httptoken}}
-Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
-
-------WebKitFormBoundary7MA4YWxkTrZu0gW
-Content-Disposition: form-data; name="title"
-
-Test Category
-------WebKitFormBoundary7MA4YWxkTrZu0gW
-Content-Disposition: form-data; name="image"; filename="category-image.jpg"
-Content-Type: image/jpeg
-
-< ./category-image.jpg
-------WebKitFormBoundary7MA4YWxkTrZu0gW--
 
 ###
 # Get product offer information
-GET {{baseUrl}}/api/dashboard/products/products/offer?productID=1
+GET {{baseUrl}}/api/dashboard/products/products/offer?productID=15
 Cookie: token={{token}}; httpToken={{httptoken}}
 
 ###
 # Update product offer
-PUT {{baseUrl}}/api/dashboard/products/products/offer?productID=1
+PUT {{baseUrl}}/api/dashboard/products/products/offer?productID=15
 Cookie: token={{token}}; httpToken={{httptoken}}
 Content-Type: {{contentType}}
 
@@ -97,12 +99,12 @@ Content-Type: {{contentType}}
 
 ###
 # Get product information by ID
-GET {{baseUrl}}/api/dashboard/products/products/1
+GET {{baseUrl}}/api/dashboard/products/products/15
 Cookie: token={{token}}; httpToken={{httptoken}}
 
 ###
 # Update product information
-PUT {{baseUrl}}/api/dashboard/products/products/1
+PUT {{baseUrl}}/api/dashboard/products/products/15
 Cookie: token={{token}}; httpToken={{httptoken}}
 Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
 
@@ -122,4 +124,14 @@ Updated product information
 Content-Disposition: form-data; name="description"
 
 Updated detailed description of the product
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="image"; filename="test-image.jpg"
+Content-Type: image/png
+
+< ./public/image.png
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="video"; filename="test-video.mp4"
+Content-Type: video/mp4
+
+< ./public/video.mp4
 ------WebKitFormBoundary7MA4YWxkTrZu0gW--

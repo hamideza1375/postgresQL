@@ -1,5 +1,6 @@
 import { db } from '@/utils/dbConnect';
 import { DataTypes, Model } from 'sequelize';
+import User from './UsersModel';
 
 // تعریف انواع مختلف برای محصولات
 
@@ -321,16 +322,20 @@ Product.init(
   }
 );
 
-
-
-Product.hasMany(Comment, {
-  foreignKey: 'productId',
-  as: 'comments',
-});
-
 Comment.belongsTo(Product, {
   foreignKey: 'productId',
   as: 'product',
+});
+
+// اضافه کردن رابطه بین Comment و User
+Comment.belongsTo(User, {
+  foreignKey: 'userId',
+  as: 'user',
+});
+
+User.hasMany(Comment, {
+  foreignKey: 'userId',
+  as: 'comments',
 });
 
 Comment.hasMany(Answer, {
@@ -342,6 +347,7 @@ Answer.belongsTo(Comment, {
   foreignKey: 'commentId',
   as: 'comment',
 });
+
 
 export { Product, Comment, Answer };
 export default Product;

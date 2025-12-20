@@ -25,12 +25,13 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
         }
 
         // اگر پروفایل قبلا داشته باشد آن را حذف می کند
-        const profileImage = await ProfileModel.findOne({ 
+        const profileImage = (await ProfileModel.findOne({ 
             where: {
                 userId: _user.userId
-            }
-        });
-        
+            },
+            // raw: true
+        }))?.toJSON();        
+
         if (profileImage) {
             const imagePath = path.join(process.cwd(), 'assets/uploads/profile/' + profileImage.imageUrl);
             if (existsSync(imagePath)) {

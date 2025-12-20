@@ -40,16 +40,9 @@ export default async function authUserRoutes() {
         // بررسی وجود توکن‌ها
         if (!user?.payload || !httpToken?.payload)
             return reject({ message: 'ابتدا وارد حساب خود شوید', status: 401 });
-        
-        console.log('-----------------------');
-
-        console.log('user',user);
-        console.log('-----------------------');
-
-        console.log('httpToken',httpToken);
 
         // پیدا کردن کاربر با استفاده از آی‌دی
-        const UserModel = await UsersModel.findByPk(Number(httpToken.payload.userId));
+        const UserModel = await UsersModel.findByPk(parseInt(httpToken.payload.userId), {raw: true});
         
         // بررسی نوع داده و وضعیت حساب کاربر
         if (typeof UserModel !== 'object') reject({ message: 'ابتدا وارد حساب خود شوید', status: 401 });

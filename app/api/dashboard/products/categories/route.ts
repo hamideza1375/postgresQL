@@ -1,4 +1,5 @@
 import authAdminRoutes from '@/middleware/authAdminRoutes';
+import errorHandling from '@/middleware/errorHandling';
 import Category from '@/models/CategoriesModel';
 import {dbConnect} from '@/utils/dbConnect';
 import { writeFile } from 'fs/promises';
@@ -7,7 +8,7 @@ import path from 'path';
 
 // تابع POST برای ایجاد دسته‌بندی جدید
 export async function POST(req: NextRequest): Promise<NextResponse> {
-    try {
+    return errorHandling(async()=>{
         await dbConnect();
         await authAdminRoutes();
         
@@ -58,17 +59,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
             },
             { status: 201 }
         );
-    } catch (error: any) {
-        console.error('خطا در ایجاد دسته‌بندی:', error);
-        return NextResponse.json(
-            { 
-                error: error?.message || 'خطای سرور' 
-            },
-            { 
-                status: error?.status || 500 
-            }
-        );
-    }
+    })
 }
 
 // تابع GET برای دریافت دسته‌بندی‌ها

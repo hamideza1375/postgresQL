@@ -48,10 +48,10 @@ export async function PUT(req: NextRequest) {
         }
 
         // Update product offer
-        product.offer = {
+        product.setDataValue('offer', {
             exp: exp > 0 ? new Date().getTime() + 60000 * 60 * exp : 0,
             value: value || 0
-        };
+        })
 
         await product.save();
         return res.json({ message: 'تخفیف با موفقیت به‌روزرسانی شد', dt: product }, { status: 202 });
@@ -83,17 +83,19 @@ export async function GET(req: NextRequest) {
         }
 
         const product = await Product.findByPk(productIdNum, {
+            raw: true,
             attributes: ['offer']
         });
         if (!product) {
             return res.json('محصول یافت نشد', { status: 404 });
         }
 
-        if (product.offer.exp <= 0) {
+
+        if (product.offer?.exp <= 0) {
             return res.json({});
         }
 
-        const { days, hours, minutes, seconds } = calculateRemainingTime(product.offer.exp);
+        const { days, hours, minutes, seconds } = calculateRemainingTime(product.offer?.exp);
         
         const timeString = (days > 7 ? `${days}/` : '') + 
                           `${hours.toString().padStart(2, '0')}:` + 
@@ -102,7 +104,7 @@ export async function GET(req: NextRequest) {
 
         return res.json({
             exp: timeString,
-            value: product.offer.value
+            value: product.offer?.value
         });
 
     } catch (error: any) {

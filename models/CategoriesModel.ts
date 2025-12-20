@@ -38,7 +38,10 @@ Category.init(
     title: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true,
+      unique: {
+        name: 'unique_category_title',
+        msg: 'دسته بندی با این عنوان قبلا ثبت شده است',
+      },
       validate: {
         notEmpty: {
           msg: 'لطفا نام دسته‌بندی را وارد کنید',

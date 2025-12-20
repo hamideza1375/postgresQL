@@ -5,9 +5,6 @@ import { existsSync, unlinkSync, writeFileSync } from 'fs';
 import { NextRequest, NextResponse } from 'next/server';
 import path from 'path';
 
-interface Params {
-    id: string;
-}
 
 interface ProductFormData {
     image?: File;
@@ -21,14 +18,15 @@ interface ProductFormData {
 // تابع GET برای دریافت اطلاعات محصول
 export async function GET(
     req: NextRequest,
-    { params }: { params: Params }
+    { params }: { params: Promise<{id:any}> }
 ): Promise<NextResponse> {
     try {
         await dbConnect();
         await authAdminRoutes();
 
+
         // اعتبارسنجی شناسه محصول
-        const productId = parseInt(params.id);
+        const { id: productId } = await params
         if (isNaN(productId)) {
             return NextResponse.json(
                 { error: 'شناسه محصول نامعتبر است' },
@@ -58,14 +56,15 @@ export async function GET(
 // تابع PUT برای به‌روزرسانی اطلاعات محصول
 export async function PUT(
     req: NextRequest,
-    { params }: { params: Params }
+    { params }: { params: Promise<{id:number}> }
 ): Promise<NextResponse> {
     try {
         await dbConnect();
         await authAdminRoutes();
 
         // اعتبارسنجی شناسه محصول
-        const productId = parseInt(params.id);
+        const {id:productId} = await params;
+
         if (isNaN(productId)) {
             return NextResponse.json(
                 { error: 'شناسه محصول نامعتبر است' },
@@ -139,13 +138,14 @@ export async function PUT(
         }
 
         // به‌روزرسانی اطلاعات محصول
-        product.title = title;
-        product.price = Number(price);
-        product.description = description;
-        product.info = info;
-
-        if (imageName) product.imageUrl = imageName;
-        if (videoName) product.videoUrl = videoName;
+        product.setAttributes({
+            title,
+            price: Number(price),
+            description,
+            info,
+            ...(imageName && { imageUrl: imageName }),
+            ...(videoName && { videoUrl: videoName })
+        });
 
         await product.save();
 

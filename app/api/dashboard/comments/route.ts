@@ -30,7 +30,7 @@ export async function GET() {
                     attributes: ['email']
                 }
             ],
-            attributes: ['id', 'message', 'rating', 'username', 'createdAt']
+            // attributes: ['id', 'message', 'rating', 'username', 'createdAt']
         });
 
         // بازگشت نظرات به صورت JSON

@@ -2,7 +2,7 @@ import ProductsModel from '@/models/ProductModel';
 import {dbConnect} from '@/utils/dbConnect';
 
 // ... existing code ...
-export async function GET(req: Request, { params }: { params: Promise<{ id: string }> }) {
+export async function GET(req: Request, { params }: { params: Promise<{ id: number }> }) {
     await dbConnect()
 
     // دریافت id از params با استفاده از await
@@ -13,7 +13,7 @@ export async function GET(req: Request, { params }: { params: Promise<{ id: stri
         return Response.json({ error: 'شناسه محصول الزامی است' }, { status: 400 });
     }
 
-    let product = await ProductsModel.findByPk(parseInt(id), {
+    let product = await ProductsModel.findByPk(id, {
         attributes: {
             exclude: ['comments', 'questions', 'parts', 'stars']
         }
