@@ -45,7 +45,7 @@ class User extends Model<UserAttributes> implements UserAttributes {
 
   // متد مقایسه رمز عبور
   public async comparePassword(candidatePassword: string): Promise<void> {
-    const [salt, hashedPassword] = this.dataValues.password.split(':');
+    const [salt, hashedPassword] = this.password.split(':');
 
     console.log('hashedPassword', hashedPassword);
     console.log('-----------------');
@@ -205,7 +205,7 @@ User.addHook('beforeSave', async (user: User) => {
   if (!user.changed('password')) return;
 
   // بررسی وجود رمز عبور
-  if (!user.dataValues.password || typeof user.dataValues.password !== 'string') {
+  if (!user.password || typeof user.password !== 'string') {
     throw new Error('Password is required and must be a string');
   }
 
@@ -214,7 +214,7 @@ User.addHook('beforeSave', async (user: User) => {
   const salt = crypto.randomBytes(16).toString('hex');
 
   return new Promise<void>((resolve, reject) => {
-    crypto.scrypt(user.dataValues.password, salt, keyLength, { N, r, p }, (err, derivedKey) => {
+    crypto.scrypt(user.password, salt, keyLength, { N, r, p }, (err, derivedKey) => {
       if (err) return reject(err);
 
       user.setDataValue('password', `${salt}:${derivedKey.toString('hex')}`)
