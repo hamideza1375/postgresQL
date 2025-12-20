@@ -26,7 +26,7 @@ export async function PUT(req: NextRequest) {
             { show: true },
             {
                 where: {
-                    id: parseInt(id)
+                    id
                 }
             }
         );
@@ -37,7 +37,7 @@ export async function PUT(req: NextRequest) {
         }
 
         // دریافت کامنت به‌روزرسانی شده
-        const updatedComment = await Comment.findByPk(parseInt(id));
+        const updatedComment = await Comment.findByPk(id);
 
         return Response.json({
             message: 'کامنت به لیست افزوده شد',

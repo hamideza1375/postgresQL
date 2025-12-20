@@ -20,7 +20,7 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ id: 
     }
     
     // دریافت کامنت بر اساس شناسه
-    const comment = await Comment.findByPk(parseInt(id), {
+    const comment = await Comment.findByPk(id, {
         attributes: ['message', 'rating']
     });
 
@@ -48,7 +48,7 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
         const { message, star }: { message: string; star: number } = await req.json();
 
         // یافتن کامنت بر اساس شناسه
-        const comment = await Comment.findByPk(parseInt(id));
+        const comment = await Comment.findByPk(id);
         
         if (!comment) {
             return Response.json('کامنت یافت نشد', { status: 404 });
@@ -74,7 +74,7 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
             },
             { 
                 where: { 
-                    id: parseInt(id) 
+                    id: id 
                 } 
             }
         );
@@ -120,7 +120,7 @@ export async function DELETE(req: NextRequest, { params }: { params: Promise<{ i
         }
 
         // یافتن کامنت بر اساس شناسه
-        const comment = await Comment.findByPk(parseInt(id));
+        const comment = await Comment.findByPk(id);
         
         if (!comment) {
             return Response.json('کامنت یافت نشد', { status: 404 });
@@ -140,7 +140,7 @@ export async function DELETE(req: NextRequest, { params }: { params: Promise<{ i
         // حذف کامنت
         await Comment.destroy({
             where: {
-                id: parseInt(id)
+                id: id
             }
         });
 

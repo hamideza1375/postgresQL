@@ -6,13 +6,17 @@ import { getScryptParams } from '@/utils/getScryptParams';
 
 // ویژگی‌های مربوط به کاربر
 interface UserAttributes {
-  id?: number;
+  id?: string;
   username?: string;
   email: string;
   phone?: string;
   password: string;
   isAdmin?: number;
-  products?: any[];
+  products?: [{ productId: string, version: string }];
+  // products?: Array<any>;
+  // products?: any[];
+  // products: Array<{ productId: string, version: string }>;
+  // products: { productId: string, version: string }[];
   blocked?: number;
   address?: string;
   city?: string;
@@ -27,13 +31,13 @@ const keyLength = 64;
 
 // مدل کاربر
 class User extends Model<UserAttributes> implements UserAttributes {
-  declare id: number;
+  declare id: string;
   declare username: string;
   declare email: string;
   declare phone: string;
   declare password: string;
   declare isAdmin: number;
-  declare products: any[];
+  declare products: [{ productId: string, version: string }];
   declare blocked: number;
   declare address: string;
   declare city: string;
@@ -74,7 +78,7 @@ class User extends Model<UserAttributes> implements UserAttributes {
 User.init(
   {
     id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
       autoIncrement: true,
       primaryKey: true,
       // type: DataTypes.UUID,
@@ -217,7 +221,7 @@ User.addHook('beforeSave', async (user: User) => {
     crypto.scrypt(user.password, salt, keyLength, { N, r, p }, (err, derivedKey) => {
       if (err) return reject(err);
 
-      user.setDataValue('password', `${salt}:${derivedKey.toString('hex')}`)
+      user.password = `${salt}:${derivedKey.toString('hex')}`
       resolve();
     });
   });

@@ -111,7 +111,7 @@ export async function PUT(
                 await writeFile(uploadPath, buffer);
                 
                 // حذف فایل قبلی اگر وجود داشته باشد
-                if (category.dataValues.imageUrl) {
+                if (category.imageUrl) {
                     const oldImagePath = path.join(
                         process.cwd(), 
                         'assets/uploads/product/', 
@@ -161,7 +161,7 @@ export async function DELETE(
         
         const category = await Category.destroy({
             where: {
-                id: parseInt(id)
+                id
             }
         });
         

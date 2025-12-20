@@ -50,7 +50,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
         const body: RequestBodyPOST = await req.json();
 
         // بررسی ایمیل کاربر
-        const user = await UsersModel.findOne({ 
+        const user = await UsersModel.findOne({
             where: {
                 email: _user.email
             }
@@ -61,7 +61,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
         }
 
         // بررسی گذرواژه قبلی کاربر
-         await user.comparePassword(body.password);
+        await user.comparePassword(body.password);
 
         // ارسال کد
         const response = await sendCode(_user.email, req.url);
@@ -87,11 +87,33 @@ export async function PUT(req: NextRequest): Promise<NextResponse> {
         const _user = getUser(req);
         const { code, username, newPassword }: RequestBodyPUT = await req.json();
 
-  
+
         await checkCode(_user.email, code);
 
+
+        // const [updatedRowsCount] = await UsersModel.update(
+        //     {
+        //         username,
+        //         password: newPassword
+        //     },
+        //     {
+        //         where: {
+        //             email: _user.email
+        //         }
+        //     }
+        // );
+
+        // // بررسی اینکه آیا رکوردی به‌روزرسانی شده است یا خیر
+        // if (updatedRowsCount === 0) {
+        //     return NextResponse.json(
+        //         { error: 'کاربر مورد نظر یافت نشد' },
+        //         { status: 404 }
+        //     );
+        // }
+
+
         // دریافت اطلاعات کاربر
-        const user = await UsersModel.findOne({ 
+        const user = await UsersModel.findOne({
             where: {
                 email: _user.email
             }
@@ -102,15 +124,16 @@ export async function PUT(req: NextRequest): Promise<NextResponse> {
         }
 
         // بروزرسانی اطلاعات کاربر
-        user.setDataValue('username', username)
-        user.setDataValue('password', newPassword)
-        await user.save();
+        await user.update({
+            username,
+            password: newPassword
+        });
 
         const forUserToken: UserToken = {
-            userId: user.dataValues.id,
-            username: user.dataValues.username,
-            email: user.dataValues.email,
-            products: user.dataValues.products
+            userId: user.id,
+            username: user.username,
+            email: user.email,
+            products: user.products
         };
 
         // ایجاد توکن اصلی برای کوکی
@@ -135,7 +158,7 @@ export async function PUT(req: NextRequest): Promise<NextResponse> {
         cache.del('code' + user.email);
 
         await checkCode(_user.email, code);
-        
+
 
         // ارسال پاسخ
         return NextResponse.json({ value: token, message: {} }, { status: 201 });

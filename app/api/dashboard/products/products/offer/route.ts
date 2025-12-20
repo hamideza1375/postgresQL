@@ -27,12 +27,11 @@ export async function PUT(req: NextRequest) {
         }
 
         // تبدیل productId به عدد برای Sequelize
-        const productIdNum = parseInt(productId);
-        if (isNaN(productIdNum)) {
+        if (productId) {
             return res.json('شناسه محصول نامعتبر است', { status: 400 });
         }
 
-        const product = await Product.findByPk(productIdNum);
+        const product = await Product.findByPk(productId);
         if (!product) {
             return res.json('این گزینه قبلا از سرور حذف شده', { status: 400 });
         }
@@ -48,10 +47,11 @@ export async function PUT(req: NextRequest) {
         }
 
         // Update product offer
-        product.setDataValue('offer', {
+
+        product.offer = {
             exp: exp > 0 ? new Date().getTime() + 60000 * 60 * exp : 0,
             value: value || 0
-        })
+        }
 
         await product.save();
         return res.json({ message: 'تخفیف با موفقیت به‌روزرسانی شد', dt: product }, { status: 202 });
@@ -77,12 +77,11 @@ export async function GET(req: NextRequest) {
         }
 
         // تبدیل productId به عدد برای Sequelize
-        const productIdNum = parseInt(productId);
-        if (isNaN(productIdNum)) {
+        if (productId) {
             return res.json('شناسه محصول نامعتبر است', { status: 400 });
         }
 
-        const product = await Product.findByPk(productIdNum, {
+        const product = await Product.findByPk(productId, {
             raw: true,
             attributes: ['offer']
         });

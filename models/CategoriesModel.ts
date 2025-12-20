@@ -15,7 +15,7 @@ import { DataTypes, Model } from 'sequelize';
 
 // ویژگی‌های مربوط به دسته‌بندی
 interface CategoryAttributes {
-  id?: number;
+  id?: string;
   title: string;
   imageUrl: string;
   isActive: boolean;
@@ -23,7 +23,7 @@ interface CategoryAttributes {
 
 // مدل دسته‌بندی
 class Category extends Model<CategoryAttributes> implements CategoryAttributes {
-  declare id: number;
+  declare id: string;
   declare title: string;
   declare imageUrl: string;
   declare isActive: boolean;
@@ -32,7 +32,7 @@ class Category extends Model<CategoryAttributes> implements CategoryAttributes {
 Category.init(
   {
     id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
       autoIncrement: true,
       primaryKey: true,
     },

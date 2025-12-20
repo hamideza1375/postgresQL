@@ -172,7 +172,7 @@ export async function DELETE(
         await dbConnect();
         await authAdminRoutes(req);
 
-        const productId = parseInt(params.id);
+        const productId = params.id;
         if (isNaN(productId)) {
             return NextResponse.json(
                 { error: 'شناسه محصول نامعتبر است' },

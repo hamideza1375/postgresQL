@@ -68,8 +68,8 @@ export async function POST(req: NextRequest) {
     // ایجاد توکن برای مدیر
     const forToken: TokenPayload = {
       isAdmin: 1,
-      userId: user.dataValues.id,
-      username: user.dataValues.username as string,
+      userId: user.id,
+      username: user.username,
       email,
       products: []
     };

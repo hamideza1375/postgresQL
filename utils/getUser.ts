@@ -5,7 +5,7 @@ import { NextRequest } from "next/server";
 type userType = {
   email: string;
   username: string;
-  userId: number;
+  userId: string;
   products: object[];
   isAdmin: boolean;
 };

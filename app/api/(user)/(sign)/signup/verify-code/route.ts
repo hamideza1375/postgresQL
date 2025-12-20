@@ -66,7 +66,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
 
         // Set first user as admin
         if (userLength === 0) {
-            user.setDataValue('isAdmin', 1)
+            user.isAdmin = 1
             await user.save();
         }
         else {
@@ -77,10 +77,10 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
 
         // Create JWT tokens
         const forToken: UserToken = {
-            userId: user.dataValues.id,
-            username: user.dataValues.username,
-            email: user.dataValues.email,
-            products: user.dataValues.products
+            userId: user.id,
+            username: user.username,
+            email: user.email,
+            products: user.products
         };
 
         const token = (secret: string): string => jwt.sign(forToken, secret);

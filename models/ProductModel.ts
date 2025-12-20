@@ -7,27 +7,27 @@ import User from './UsersModel';
 
 // مدل Answer
 interface AnswerAttributes {
-  id?: number;
+  id?: string;
   username: string;
   message: string;
   to: string;
-  commentId: number;
+  commentId: string;
   isActive: boolean;
 }
 
 class Answer extends Model<AnswerAttributes> implements AnswerAttributes {
-  declare id: number;
+  declare id: string;
   declare username: string;
   declare message: string;
   declare to: string;
-  declare commentId: number;
+  declare commentId: string;
   declare isActive: boolean;
 }
 
 Answer.init(
   {
     id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
       autoIncrement: true,
       primaryKey: true,
     },
@@ -44,7 +44,7 @@ Answer.init(
       allowNull: false,
     },
     commentId: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
       allowNull: false,
       references: {
         model: 'comments',
@@ -66,33 +66,33 @@ Answer.init(
 
 // مدل Comment
 interface CommentAttributes {
-  id?: number;
+  id?: string;
   username: string;
   message: string;
   show?: boolean;
   rating: number;
-  userId: number;
+  userId: string;
   likeCount: number;
-  productId: number;
+  productId: string;
   isActive?: boolean;
 }
 
 class Comment extends Model<CommentAttributes> implements CommentAttributes {
-  declare id: number;
+  declare id: string;
   declare username: string;
   declare message: string;
   declare show: boolean;
   declare rating: number;
-  declare userId: number;
+  declare userId: string;
   declare likeCount: number;
-  declare productId: number;
+  declare productId: string;
   declare isActive: boolean;
 }
 
 Comment.init(
   {
     id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
       autoIncrement: true,
       primaryKey: true,
     },
@@ -122,7 +122,7 @@ Comment.init(
       },
     },
     userId: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
       allowNull: true,
       references: {
         model: 'users',
@@ -134,7 +134,7 @@ Comment.init(
       defaultValue: 0,
     },
     productId: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
       allowNull: false,
       references: {
         model: 'products',
@@ -156,7 +156,7 @@ Comment.init(
 
 // مدل Product
 interface ProductAttributes {
-  id?: number;
+  id?: string;
   urls?: string;
   title: string;
   info: string;
@@ -164,7 +164,7 @@ interface ProductAttributes {
   description: string;
   imageUrl?: string;
   videoUrl?: string;
-  categoryId: number;
+  categoryId: string;
   popular: boolean;
   offer: {
     exp: number;
@@ -181,7 +181,7 @@ interface ProductAttributes {
 }
 
 class Product extends Model<ProductAttributes> implements ProductAttributes {
-  declare id: number;
+  declare id: string;
   declare urls: string;
   declare title: string;
   declare info: string;
@@ -189,7 +189,7 @@ class Product extends Model<ProductAttributes> implements ProductAttributes {
   declare description: string;
   declare imageUrl: string;
   declare videoUrl: string;
-  declare categoryId: number;
+  declare categoryId: string;
   declare popular: boolean;
   declare offer: {
     exp: number;
@@ -208,7 +208,7 @@ class Product extends Model<ProductAttributes> implements ProductAttributes {
 Product.init(
   {
     id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
       autoIncrement: true,
       primaryKey: true,
     },
@@ -262,7 +262,7 @@ Product.init(
       allowNull: true,
     },
     categoryId: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
       allowNull: false,
       references: {
         model: 'categories',

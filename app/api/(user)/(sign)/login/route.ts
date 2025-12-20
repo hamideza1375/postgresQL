@@ -52,15 +52,15 @@ export async function POST(req: NextRequest) {
             await user.comparePassword(password);
             
             // اگر کاربر ادمین نباشد
-            if (!user.dataValues.isAdmin) {
+            if (!user.isAdmin) {
                 
                 // ایجاد توکن برای کاربر عادی
                 const forUserToken: UserToken = {
                     // ...(user.seller && { sellerId: user.seller.toString() }),
-                    userId: user.dataValues.id,
-                    username: user.dataValues.username,
-                    email: user.dataValues.email,
-                    products: user.dataValues.products
+                    userId: user.id,
+                    username: user.username,
+                    email: user.email,
+                    products: user.products
                 };
 
 

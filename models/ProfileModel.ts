@@ -3,22 +3,22 @@ import { DataTypes, Model } from 'sequelize';
 
 // Interface for Profile attributes
 interface ProfileAttributes {
-  id?: number;
+  id?: string;
   imageUrl: string;
-  userId: number;
+  userId: string;
 }
 
 // Profile model class
 class Profile extends Model<ProfileAttributes> implements ProfileAttributes {
-  declare id: number;
+  declare id: string;
   declare imageUrl: string;
-  declare userId: number;
+  declare userId: string;
 }
 
 Profile.init(
   {
     id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
       autoIncrement: true,
       primaryKey: true,
       // field: '_id',
@@ -33,7 +33,7 @@ Profile.init(
       }
     },
     userId: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
       allowNull: false,
       unique: {
         name: "unique_user_profile",

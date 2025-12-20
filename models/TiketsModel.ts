@@ -8,19 +8,19 @@ export type TicketPriority = 'Low' | 'Medium' | 'high';
 
 // تعریف ویژگی‌های پاسخ تیکت
 interface AnswerTicketAttributes {
-  id?: number;
+  id?: string;
   message?: string;
   imageUrl?: string;
-  userId?: number;
+  userId?: string;
   seenDate: Date;
 }
 
 // تعریف مدل پاسخ تیکت
 class AnswerTicket extends Model<AnswerTicketAttributes> implements AnswerTicketAttributes {
-  declare id: number;
+  declare id: string;
   declare message: string;
   declare imageUrl: string;
-  declare userId: number;
+  declare userId: string;
   declare seenDate: Date;
   declare createdAt: Date;
   declare updatedAt: Date;
@@ -29,7 +29,7 @@ class AnswerTicket extends Model<AnswerTicketAttributes> implements AnswerTicket
 AnswerTicket.init(
   {
     id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
       autoIncrement: true,
       primaryKey: true,
     },
@@ -42,7 +42,7 @@ AnswerTicket.init(
       allowNull: true,
     },
     userId: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
       allowNull: true,
       references: {
         model: 'users',
@@ -64,7 +64,7 @@ AnswerTicket.init(
 
 // تعریف ویژگی‌های تیکت اصلی
 interface TicketAttributes {
-  id: number;
+  id: string;
   title: string;
   message?: string;
   imageUrl?: string;
@@ -74,12 +74,12 @@ interface TicketAttributes {
   status: TicketStatus;
   priority: TicketPriority;
   closedAt?: Date;
-  userId: number;
+  userId: string;
 }
 
 // تعریف مدل تیکت اصلی
 class Ticket extends Model<TicketAttributes> implements TicketAttributes {
-  declare id: number;
+  declare id: string;
   declare title: string;
   declare message: string;
   declare imageUrl: string;
@@ -89,13 +89,13 @@ class Ticket extends Model<TicketAttributes> implements TicketAttributes {
   declare status: TicketStatus;
   declare priority: TicketPriority;
   declare closedAt: Date;
-  declare userId: number;
+  declare userId: string;
 }
 
 Ticket.init(
   {
     id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
       autoIncrement: true,
       primaryKey: true,
     },
@@ -142,7 +142,7 @@ Ticket.init(
       allowNull: true,
     },
     userId: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
       allowNull: true,
       references: {
         model: 'users',

@@ -6,7 +6,7 @@ type PaymentStatus = 'pending' | 'processing' | 'shipped' | 'delivered' | 'cance
 
 // ویژگی‌های مربوط به پرداخت
 interface PaymentAttributes {
-  id?: number;
+  id?: string;
   representativeId?: number;
   version: number;
   price: number;
@@ -20,7 +20,7 @@ interface PaymentAttributes {
 
 // مدل پرداخت
 class Payment extends Model<PaymentAttributes> implements PaymentAttributes {
-  declare id: number;
+  declare id: string;
   declare representativeId: number;
   declare version: number;
   declare price: number;
@@ -35,12 +35,12 @@ class Payment extends Model<PaymentAttributes> implements PaymentAttributes {
 Payment.init(
   {
     id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
       autoIncrement: true,
       primaryKey: true,
     },
     representativeId: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
       allowNull: true,
       references: {
         model: 'users',
@@ -72,7 +72,7 @@ Payment.init(
       defaultValue: false,
     },
     userId: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
       allowNull: false,
       references: {
         model: 'users',
@@ -94,26 +94,26 @@ Payment.init(
 
 // جدول میانی برای رابطه many-to-many بین Payment و Product
 interface PaymentProductAttributes {
-  id: number;
-  paymentId: number;
-  productId: number;
+  id: string;
+  paymentId: string;
+  productId: string;
 }
 
 class PaymentProduct extends Model<PaymentProductAttributes> implements PaymentProductAttributes {
-  declare id: number;
-  declare paymentId: number;
-  declare productId: number;
+  declare id: string;
+  declare paymentId: string;
+  declare productId: string;
 }
 
 PaymentProduct.init(
   {
     id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
       autoIncrement: true,
       primaryKey: true,
     },
     paymentId: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
       allowNull: false,
       references: {
         model: 'payments',
@@ -121,7 +121,7 @@ PaymentProduct.init(
       },
     },
     productId: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
       allowNull: false,
       references: {
         model: 'products',
