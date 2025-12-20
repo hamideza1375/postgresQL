@@ -16,12 +16,12 @@ interface AnswerAttributes {
 }
 
 class Answer extends Model<AnswerAttributes> implements AnswerAttributes {
-  public id!: number;
-  public username!: string;
-  public message!: string;
-  public to!: string;
-  public commentId!: number;
-  public isActive!: boolean;
+  declare id: number;
+  declare username: string;
+  declare message: string;
+  declare to: string;
+  declare commentId: number;
+  declare isActive: boolean;
 }
 
 Answer.init(
@@ -78,15 +78,15 @@ interface CommentAttributes {
 }
 
 class Comment extends Model<CommentAttributes> implements CommentAttributes {
-  public id!: number;
-  public username!: string;
-  public message!: string;
-  public show!: boolean;
-  public rating!: number;
-  public userId!: number;
-  public likeCount!: number;
-  public productId!: number;
-  public isActive!: boolean;
+  declare id: number;
+  declare username: string;
+  declare message: string;
+  declare show: boolean;
+  declare rating: number;
+  declare userId: number;
+  declare likeCount: number;
+  declare productId: number;
+  declare isActive: boolean;
 }
 
 Comment.init(
@@ -181,28 +181,28 @@ interface ProductAttributes {
 }
 
 class Product extends Model<ProductAttributes> implements ProductAttributes {
-  public id!: number;
-  public urls!: string;
-  public title!: string;
-  public info!: string;
-  public price!: number;
-  public description!: string;
-  public imageUrl!: string;
-  public videoUrl!: string;
-  public categoryId!: number;
-  public popular!: boolean;
-  public offer!: {
+  declare id: number;
+  declare urls: string;
+  declare title: string;
+  declare info: string;
+  declare price: number;
+  declare description: string;
+  declare imageUrl: string;
+  declare videoUrl: string;
+  declare categoryId: number;
+  declare popular: boolean;
+  declare offer: {
     exp: number;
     value: number;
   };
-  public stock!: number;
-  public rating!: number;
-  public ratings!: number;
-  public metaTitle!: string;
-  public metaDescription!: string;
-  public metaKeywords!: string[];
-  public isActive!: boolean;
-  public free!: boolean;
+  declare stock: number;
+  declare rating: number;
+  declare ratings: number;
+  declare metaTitle: string;
+  declare metaDescription: string;
+  declare metaKeywords: string[];
+  declare isActive: boolean;
+  declare free: boolean;
 }
 
 Product.init(

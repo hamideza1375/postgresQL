@@ -27,20 +27,20 @@ const keyLength = 64;
 
 // مدل کاربر
 class User extends Model<UserAttributes> implements UserAttributes {
-  public id!: number;
-  public username!: string;
-  public email!: string;
-  public phone!: string;
-  public password!: string;
-  public isAdmin!: number;
-  public products!: any[];
-  public blocked!: number;
-  public address!: string;
-  public city!: string;
-  public postalCode!: string;
-  public latlng!: object;
-  public lastLogin!: Date;
-  public passwordChangedAt!: Date;
+  declare id: number;
+  declare username: string;
+  declare email: string;
+  declare phone: string;
+  declare password: string;
+  declare isAdmin: number;
+  declare products: any[];
+  declare blocked: number;
+  declare address: string;
+  declare city: string;
+  declare postalCode: string;
+  declare latlng: object;
+  declare lastLogin: Date;
+  declare passwordChangedAt: Date;
 
 
   // متد مقایسه رمز عبور

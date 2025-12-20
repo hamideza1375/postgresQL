@@ -12,6 +12,7 @@
 import { db } from '@/utils/dbConnect';
 import { DataTypes, Model } from 'sequelize';
 
+
 // ویژگی‌های مربوط به دسته‌بندی
 interface CategoryAttributes {
   id?: number;
@@ -22,10 +23,10 @@ interface CategoryAttributes {
 
 // مدل دسته‌بندی
 class Category extends Model<CategoryAttributes> implements CategoryAttributes {
-  public id!: number;
-  public title!: string;
-  public imageUrl!: string;
-  public isActive!: boolean;
+  declare id: number;
+  declare title: string;
+  declare imageUrl: string;
+  declare isActive: boolean;
 }
 
 Category.init(

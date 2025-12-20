@@ -20,16 +20,16 @@ interface PaymentAttributes {
 
 // مدل پرداخت
 class Payment extends Model<PaymentAttributes> implements PaymentAttributes {
-  public id!: number;
-  public representativeId!: number;
-  public version!: number;
-  public price!: number;
-  public title!: string;
-  public authority!: string;
-  public RefID!: string;
-  public success!: boolean;
-  public userId!: number;
-  public status!: PaymentStatus;
+  declare id: number;
+  declare representativeId: number;
+  declare version: number;
+  declare price: number;
+  declare title: string;
+  declare authority: string;
+  declare RefID: string;
+  declare success: boolean;
+  declare userId: number;
+  declare status: PaymentStatus;
 }
 
 Payment.init(
@@ -100,9 +100,9 @@ interface PaymentProductAttributes {
 }
 
 class PaymentProduct extends Model<PaymentProductAttributes> implements PaymentProductAttributes {
-  public id!: number;
-  public paymentId!: number;
-  public productId!: number;
+  declare id: number;
+  declare paymentId: number;
+  declare productId: number;
 }
 
 PaymentProduct.init(

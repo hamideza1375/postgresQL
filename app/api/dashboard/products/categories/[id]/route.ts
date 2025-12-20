@@ -6,9 +6,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import path from 'path';
 import authAdminRoutes from '@/middleware/authAdminRoutes';
 
-interface Params {
-    id: string;
-}
+type Params = Promise<{  id: number }>;
+
 
 // تابع GET برای دریافت دسته‌بندی بر اساس شناسه
 export async function GET(
@@ -18,16 +17,18 @@ export async function GET(
     try {
         await dbConnect();
         await authAdminRoutes();
+
+        const {id} = await params;
         
         // بررسی وجود id
-        if (!params.id) {
+        if (!id) {
             return NextResponse.json(
                 { error: 'شناسه دسته‌بندی الزامی است' },
                 { status: 400 }
             );
         }
         
-        const category = await Category.findByPk(parseInt(params.id));
+        const category = await Category.findByPk(id);
         
         if (!category) {
             return NextResponse.json(
@@ -49,21 +50,23 @@ export async function GET(
 // تابع PUT برای به‌روزرسانی دسته‌بندی
 export async function PUT(
     req: NextRequest,
-    { params }: { params: Params }
+    { params }: { params: Promise<{ id: number }> }
 ): Promise<NextResponse> {
     try {
         await dbConnect();
         await authAdminRoutes();
         
+        const {id} = await params;
+
         // بررسی وجود id
-        if (!params.id) {
+        if (!id) {
             return NextResponse.json(
                 { error: 'شناسه دسته‌بندی الزامی است' },
                 { status: 400 }
             );
         }
 
-        const category = await Category.findByPk(parseInt(params.id));
+        const category = await Category.findByPk(id);
         
         if (!category) {
             return NextResponse.json(
@@ -108,7 +111,7 @@ export async function PUT(
                 await writeFile(uploadPath, buffer);
                 
                 // حذف فایل قبلی اگر وجود داشته باشد
-                if (category.imageUrl) {
+                if (category.dataValues.imageUrl) {
                     const oldImagePath = path.join(
                         process.cwd(), 
                         'assets/uploads/product/', 
@@ -120,7 +123,7 @@ export async function PUT(
                     }
                 }
                 
-                category.imageUrl = filename;
+                category.set('imageUrl', filename);
             } catch (error) {
                 console.error('خطا در مدیریت فایل‌ها:', error);
                 return NextResponse.json(
@@ -130,7 +133,7 @@ export async function PUT(
             }
         }
 
-        category.title = title;
+        category.set('title', title)
         await category.save();
 
         return NextResponse.json(
@@ -158,7 +161,7 @@ export async function DELETE(
         
         const category = await Category.destroy({
             where: {
-                id: parseInt(params.id)
+                id: parseInt(id)
             }
         });
         

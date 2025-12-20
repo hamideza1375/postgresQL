@@ -10,9 +10,9 @@ interface ProfileAttributes {
 
 // Profile model class
 class Profile extends Model<ProfileAttributes> implements ProfileAttributes {
-  public id!: number;
-  public imageUrl!: string;
-  public userId!: number;
+  declare id: number;
+  declare imageUrl: string;
+  declare userId: number;
 }
 
 Profile.init(

@@ -17,13 +17,13 @@ interface AnswerTicketAttributes {
 
 // تعریف مدل پاسخ تیکت
 class AnswerTicket extends Model<AnswerTicketAttributes> implements AnswerTicketAttributes {
-  public id!: number;
-  public message!: string;
-  public imageUrl!: string;
-  public userId!: number;
-  public seenDate!: Date;
-  public createdAt!: Date;
-  public updatedAt!: Date;
+  declare id: number;
+  declare message: string;
+  declare imageUrl: string;
+  declare userId: number;
+  declare seenDate: Date;
+  declare createdAt: Date;
+  declare updatedAt: Date;
 }
 
 AnswerTicket.init(
@@ -79,17 +79,17 @@ interface TicketAttributes {
 
 // تعریف مدل تیکت اصلی
 class Ticket extends Model<TicketAttributes> implements TicketAttributes {
-  public id!: number;
-  public title!: string;
-  public message!: string;
-  public imageUrl!: string;
-  public userSeen!: boolean;
-  public adminSeen!: boolean;
-  public category!: TicketCategory;
-  public status!: TicketStatus;
-  public priority!: TicketPriority;
-  public closedAt!: Date;
-  public userId!: number;
+  declare id: number;
+  declare title: string;
+  declare message: string;
+  declare imageUrl: string;
+  declare userSeen: boolean;
+  declare adminSeen: boolean;
+  declare category: TicketCategory;
+  declare status: TicketStatus;
+  declare priority: TicketPriority;
+  declare closedAt: Date;
+  declare userId: number;
 }
 
 Ticket.init(
