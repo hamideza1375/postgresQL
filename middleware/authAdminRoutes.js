@@ -24,10 +24,7 @@ export default async function authAdminRoutes() {
     return new Promise(async (resolve, reject) => {
         // دیکد کردن توکن‌های کاربر
         const user = decode(cookieStore.get('token')?.value, { complete: true });
-        const httpUser = decode(cookieStore.get('httpToken')?.value, { complete: true });
-
-        console.log(httpUser.payload);
-        
+        const httpUser = decode(cookieStore.get('httpToken')?.value, { complete: true });      
 
         // بررسی وجود توکن‌ها
         if (!user || !httpUser) reject({ message: 'ابتدا وارد حساب خود شوید', status: 401 });

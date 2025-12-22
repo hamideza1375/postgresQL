@@ -22,14 +22,14 @@ export async function PUT(req: NextRequest) {
         await authAdminRoutes();
 
         const productId = req.nextUrl.searchParams.get('productID');
+
+        console.log(productId);
+        
+
         if (!productId) {
             return res.json('شناسه محصول مورد نیاز است', { status: 400 });
         }
 
-        // تبدیل productId به عدد برای Sequelize
-        if (productId) {
-            return res.json('شناسه محصول نامعتبر است', { status: 400 });
-        }
 
         const product = await Product.findByPk(productId);
         if (!product) {
@@ -74,11 +74,6 @@ export async function GET(req: NextRequest) {
         const productId = req.nextUrl.searchParams.get('productID');
         if (!productId) {
             return res.json('شناسه محصول مورد نیاز است', { status: 400 });
-        }
-
-        // تبدیل productId به عدد برای Sequelize
-        if (productId) {
-            return res.json('شناسه محصول نامعتبر است', { status: 400 });
         }
 
         const product = await Product.findByPk(productId, {

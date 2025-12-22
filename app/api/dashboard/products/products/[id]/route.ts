@@ -27,7 +27,8 @@ export async function GET(
 
         // اعتبارسنجی شناسه محصول
         const { id: productId } = await params
-        if (isNaN(productId)) {
+
+        if (!productId) {
             return NextResponse.json(
                 { error: 'شناسه محصول نامعتبر است' },
                 { status: 400 }
@@ -65,7 +66,7 @@ export async function PUT(
         // اعتبارسنجی شناسه محصول
         const {id:productId} = await params;
 
-        if (isNaN(productId)) {
+        if (!productId) {
             return NextResponse.json(
                 { error: 'شناسه محصول نامعتبر است' },
                 { status: 400 }
