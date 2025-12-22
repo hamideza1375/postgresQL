@@ -1,12 +1,12 @@
 # Product API Tests
 @baseUrl = http://localhost:3000
-@categoryId = 10c0cc14-3bcb-4472-b0cf-11c660f6733a
-@productId = 10c0cc14-3bcb-4472-b0cf-11c660f6733a
-@commentId = 10c0cc14-3bcb-4472-b0cf-11c660f6733a
-@filename = test-video.mp4
+@filename = 1jd3kce6vtest-video_1_0_.mp4
 @contentType = application/json
 @token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc0FkbWluIjoxLCJ1c2VySWQiOiI1ZTgyYjU2MS1kZmRmLTQwOGYtYWI4MC1hYTRhMzU4YzNmNDUiLCJ1c2VybmFtZSI6InRlc3R1c2VyIiwiZW1haWwiOiJ0ZXN0QGV4YW1wbGUuY29tIiwicHJvZHVjdHMiOltdLCJpYXQiOjE3NjY0MTU5NzV9.SXTYzdlUJzv1sogA7oxdKKTLuHcCBsQw88nJ4GAgaME
 @httptoken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc0FkbWluIjoxLCJ1c2VySWQiOiI1ZTgyYjU2MS1kZmRmLTQwOGYtYWI4MC1hYTRhMzU4YzNmNDUiLCJ1c2VybmFtZSI6InRlc3R1c2VyIiwiZW1haWwiOiJ0ZXN0QGV4YW1wbGUuY29tIiwicHJvZHVjdHMiOltdLCJpYXQiOjE3NjY0MTU5NzV9.SXTYzdlUJzv1sogA7oxdKKTLuHcCBsQw88nJ4GAgaME
+@categoryId = cb76b79c-7d1d-4597-9308-2ccb23a51a0a
+@productID = 3aa1f89b-1e87-498b-8084-0ec98705edc5
+@commentId = c6d72694-d3a1-4cee-9091-0004bb8e3bd2
 
 ###
 # Get all categories
@@ -26,25 +26,25 @@ POST {{baseUrl}}/api/products/search-all
 Content-Type: {{contentType}}
 
 {
-  "text": "react"
+  "text": "2"
 }
 
 ###
 # Get a specific product by ID
-GET {{baseUrl}}/api/products/{{productId}}
+GET {{baseUrl}}/api/products/{{productID}}
 
 ###
 # Get product comments by product ID
-GET {{baseUrl}}/api/products/comments?productId={{productId}}
+GET {{baseUrl}}/api/products/comments?productID={{productID}}
 
 ###
 # Add a new comment to a product
-POST {{baseUrl}}/api/products/comments?productId={{productId}}
+POST {{baseUrl}}/api/products/comments?productID={{productID}}
 Cookie: token={{token}}; httpToken={{httptoken}}
 Content-Type: {{contentType}}
 
 {
-  "message": "عالی بود!",
+  "message": "عالی بود2!",
   "rating": 5
 }
 
@@ -64,12 +64,16 @@ Content-Type: {{contentType}}
 }
 
 ###
+#show user comment
+PUT {{baseUrl}}/api/products/comments/show?commentID={{commentId}}
+Cookie: token={{token}}; httpToken={{httptoken}}
+Content-Type: {{contentType}}
+
+
+###
 # Get offer products
 GET {{baseUrl}}/api/products/offers
 
-###
-# Get popular products
-GET {{baseUrl}}/api/products/populars
 
 ###
 # Stream a product video

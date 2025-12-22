@@ -3,3 +3,5 @@
 {"message":"Error: SequelizeDatabaseError: operator does not exist: uuid = integer خطایی در سرور رخ داده است","file":"unknown","line":"unknown","date":"۱۴۰۴/۱۰/۱"}
 {"message":"Error: SequelizeDatabaseError: operator does not exist: uuid = integer خطایی در سرور رخ داده است","file":"unknown","line":"unknown","date":"۱۴۰۴/۱۰/۱"}
 {"message":"Error: ایمیل وارد شده تکراری است","file":"C:\\Users\\rezaa\\Desktop\\grafana-next\\.next\\dev\\server\\chunks\\0497d_sequelize_0b037abc._.js","line":"20578","date":"۱۴۰۴/۱۰/۱"}
+{"message":"Error: operator does not exist: uuid = integer","file":"C:\\Users\\rezaa\\Desktop\\grafana-next\\.next\\dev\\server\\chunks\\0497d_sequelize_0b037abc._.js","line":"20578","date":"۱۴۰۴/۱۰/۱"}
+{"message":"Error: operator does not exist: uuid = integer","file":"C:\\Users\\rezaa\\Desktop\\grafana-next\\.next\\dev\\server\\chunks\\0497d_sequelize_0b037abc._.js","line":"20578","date":"۱۴۰۴/۱۰/۱"}
