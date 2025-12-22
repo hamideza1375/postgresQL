@@ -24,7 +24,7 @@ interface RequestBodyPUT {
 }
 
 interface UserToken {
-    userId?: number;
+    userId?: string;
     username?: string;
     email: string;
     products?: any[];
@@ -39,9 +39,9 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
         await dbConnect();
         // اگر زمان ارسال مجدد کد به پایان رسیده باشد، اجازه ارسال مجدد را می دهیم
         const cookieStore = await cookies();
-        if (cookieStore.get('ResendTime')) {
-            return NextResponse.json('تا اتمام سه دقیقه صبر کنید', { status: 429 });
-        }
+        // if (cookieStore.get('ResendTime')) {
+        //     return NextResponse.json('تا اتمام سه دقیقه صبر کنید', { status: 429 });
+        // }
 
         // اطلاعات کاربر
         const _user = getUser(req)
@@ -86,6 +86,9 @@ export async function PUT(req: NextRequest): Promise<NextResponse> {
         // دریافت اطلاعات کاربر
         const _user = getUser(req);
         const { code, username, newPassword }: RequestBodyPUT = await req.json();
+
+        console.log(code, username, newPassword);
+        
 
 
         await checkCode(_user.email, code);
@@ -157,7 +160,7 @@ export async function PUT(req: NextRequest): Promise<NextResponse> {
         // حذف کد از کد
         cache.del('code' + user.email);
 
-        await checkCode(_user.email, code);
+        // await checkCode(_user.email, code);
 
 
         // ارسال پاسخ

@@ -42,7 +42,8 @@ export default async function authUserRoutes() {
             return reject({ message: 'ابتدا وارد حساب خود شوید', status: 401 });
 
         // پیدا کردن کاربر با استفاده از آی‌دی
-        const UserModel = await UsersModel.findByPk(httpToken.payload.userId, {raw: true});
+        const UserModel = await UsersModel.findByPk(httpToken.payload.userId, {raw: true})
+        .catch(err => reject({ message: err + ' خطایی در سرور رخ داده است', status: 500 }));
         
         // بررسی نوع داده و وضعیت حساب کاربر
         if (typeof UserModel !== 'object') reject({ message: 'ابتدا وارد حساب خود شوید', status: 401 });

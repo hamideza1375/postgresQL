@@ -92,10 +92,10 @@ export default async function errorHandling(call) {
     console.error("---------------------------");
     console.error(errorMessage("Error: " + error.message));
     console.error("---------------------------");
+    if(hasPersianLetters(error?.message))
     console.log(error.message.split("").reverse().join(""));
     console.error("---------------------------");
     // console.error(error);
-    console.error("---------------------------");
 
     // بررسی وجود حروف فارسی در پیام خطا و ارسال پاسخ مناسب
     if (hasPersianLetters(error?.message)) {

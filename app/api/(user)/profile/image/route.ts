@@ -1,6 +1,6 @@
 import errorHandling from '@/middleware/errorHandling';
 import ProfileModel from '@/models/ProfileModel';
-import {dbConnect} from '@/utils/dbConnect';
+import { dbConnect } from '@/utils/dbConnect';
 import getUser from '@/utils/getUser';
 import { existsSync, unlinkSync, writeFileSync } from 'fs';
 import path from 'path';
@@ -14,58 +14,55 @@ import { NextRequest, NextResponse } from 'next/server';
 export async function POST(req: NextRequest): Promise<NextResponse> {
     return errorHandling(async (): Promise<NextResponse> => {
         await dbConnect();
-        
+
         const _user = getUser(req);
         const formdata = await req.formData();
         // const { image }: {image?:File} = Object.fromEntries(formdata.entries());
         const { image } = Object.fromEntries(formdata.entries()) as { image?: File };
-        
+
         if (!image) {
             return NextResponse.json('بعدا دوباره امتحان کنید', { status: 400 });
         }
 
         // اگر پروفایل قبلا داشته باشد آن را حذف می کند
-        const profileImage = (await ProfileModel.findOne({ 
+        const profileImage = await ProfileModel.findOne({
             where: {
                 userId: _user.userId
             },
-            // raw: true
-        }))?.toJSON();        
+        })
 
+        let exist: boolean = false;
         if (profileImage) {
             const imagePath = path.join(process.cwd(), 'assets/uploads/profile/' + profileImage.imageUrl);
             if (existsSync(imagePath)) {
+                exist = true
                 unlinkSync(imagePath);
             }
+            profileImage.destroy();
         }
-        
+
         // سپس پروفایل قبلی را حذف می کند
-        await ProfileModel.destroy({ 
-            where: {
-                userId: _user.userId
-            }
-        });
 
         // تصویر را در فرمتی که میخواهیم تبدیل می کنیم
         const buffer: Buffer = Buffer.from(await image.arrayBuffer());
-        
+
         // نام فایل را ایجاد می کنیم
         const filename: string = Date.now().toString(32) + '' + Math.floor(Math.random() * 99999 + 10000) + '_' + image.name.replace(/\s+/g, '_');
-        
+
         // تصویر را در سرور ذخیره می کنیم
         const uploadPath = path.join(process.cwd(), 'assets/uploads/profile/', filename);
         writeFileSync(uploadPath, buffer);
 
         // پروفایل جدید را در دیتابیس ثبت می کنیم
-        await ProfileModel.create({ 
-            imageUrl: filename, 
-            userId: _user.userId 
+        await ProfileModel.create({
+            imageUrl: filename,
+            userId: _user.userId
         });
 
-        return NextResponse.json({ 
-            message: 'تصویر با موفقیت بروزرسانی شد', 
-            imageUrl: filename 
-        });
+        return NextResponse.json({
+            message: exist ? 'تصویر با موفقیت تغییر کرد' : 'تصویر با موفقیت ثبت شد',
+            imageUrl: filename
+        }, { status: exist ? 200 : 201 });
     });
 }
 
@@ -77,7 +74,7 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
     const _user = getUser(req);
 
     // پروفایل کاربر را دریافت می کنیم
-    const profile = await ProfileModel.findOne({ 
+    const profile = await ProfileModel.findOne({
         where: {
             userId: _user.userId
         },
@@ -88,7 +85,7 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
     if (profile) {
         return NextResponse.json(profile);
     }
-    
+
     // در غیر این صورت خالی بر میگرداند
     return NextResponse.json(null);
 }

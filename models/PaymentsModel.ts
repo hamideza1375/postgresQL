@@ -1,5 +1,7 @@
 import { db } from '@/utils/dbConnect';
 import { DataTypes, Model } from 'sequelize';
+import '@/models/UsersModel';
+import '@/models/ProductModel';
 
 // انواع وضعیت پرداخت
 type PaymentStatus = 'pending' | 'processing' | 'shipped' | 'delivered' | 'cancelled';
@@ -7,28 +9,28 @@ type PaymentStatus = 'pending' | 'processing' | 'shipped' | 'delivered' | 'cance
 // ویژگی‌های مربوط به پرداخت
 interface PaymentAttributes {
   id?: string;
-  representativeId?: number;
+  representativeId?: string;
   version: number;
   price: number;
   title: string;
   authority?: string;
   RefID?: string;
   success: boolean;
-  userId: number;
+  userId: string;
   status: PaymentStatus;
 }
 
 // مدل پرداخت
 class Payment extends Model<PaymentAttributes> implements PaymentAttributes {
   declare id: string;
-  declare representativeId: number;
+  declare representativeId: string;
   declare version: number;
   declare price: number;
   declare title: string;
   declare authority: string;
   declare RefID: string;
   declare success: boolean;
-  declare userId: number;
+  declare userId: string;
   declare status: PaymentStatus;
 }
 
@@ -36,7 +38,7 @@ Payment.init(
   {
     id: {
       type: DataTypes.UUID,
-      autoIncrement: true,
+      defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
     },
     representativeId: {
@@ -52,7 +54,7 @@ Payment.init(
       allowNull: false,
     },
     price: {
-      type: DataTypes.DECIMAL(10, 2),
+      type: DataTypes.NUMBER,
       allowNull: false,
     },
     title: {
@@ -109,7 +111,7 @@ PaymentProduct.init(
   {
     id: {
       type: DataTypes.UUID,
-      autoIncrement: true,
+      defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
     },
     paymentId: {

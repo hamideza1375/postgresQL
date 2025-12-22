@@ -1,8 +1,12 @@
 # Product API Tests
 @baseUrl = http://localhost:3000
+@categoryId = 10c0cc14-3bcb-4472-b0cf-11c660f6733a
+@productId = 10c0cc14-3bcb-4472-b0cf-11c660f6733a
+@commentId = 10c0cc14-3bcb-4472-b0cf-11c660f6733a
+@filename = test-video.mp4
 @contentType = application/json
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc0FkbWluIjoxLCJ1c2VySWQiOjEwLCJ1c2VybmFtZSI6InRlc3R1c2VyIiwiZW1haWwiOiJ0ZXN0QGV4YW1wbGUuY29tIiwicHJvZHVjdHMiOltdLCJpYXQiOjE3NjYwNzA5OTh9.JxLezpj-I8v0FFRqFdUN9A62yG9h7Xstuewh75xl7uY
-@httptoken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc0FkbWluIjoxLCJ1c2VySWQiOjEwLCJ1c2VybmFtZSI6InRlc3R1c2VyIiwiZW1haWwiOiJ0ZXN0QGV4YW1wbGUuY29tIiwicHJvZHVjdHMiOltdLCJpYXQiOjE3NjYwNzA5OTh9.JxLezpj-I8v0FFRqFdUN9A62yG9h7Xstuewh75xl7uY
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc0FkbWluIjoxLCJ1c2VySWQiOiI1ZTgyYjU2MS1kZmRmLTQwOGYtYWI4MC1hYTRhMzU4YzNmNDUiLCJ1c2VybmFtZSI6InRlc3R1c2VyIiwiZW1haWwiOiJ0ZXN0QGV4YW1wbGUuY29tIiwicHJvZHVjdHMiOltdLCJpYXQiOjE3NjY0MTU5NzV9.SXTYzdlUJzv1sogA7oxdKKTLuHcCBsQw88nJ4GAgaME
+@httptoken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc0FkbWluIjoxLCJ1c2VySWQiOiI1ZTgyYjU2MS1kZmRmLTQwOGYtYWI4MC1hYTRhMzU4YzNmNDUiLCJ1c2VybmFtZSI6InRlc3R1c2VyIiwiZW1haWwiOiJ0ZXN0QGV4YW1wbGUuY29tIiwicHJvZHVjdHMiOltdLCJpYXQiOjE3NjY0MTU5NzV9.SXTYzdlUJzv1sogA7oxdKKTLuHcCBsQw88nJ4GAgaME
 
 ###
 # Get all categories
@@ -14,7 +18,7 @@ GET {{baseUrl}}/api/products
 
 ###
 # Get products by category ID
-GET {{baseUrl}}/api/products?categoryId=1
+GET {{baseUrl}}/api/products?categoryId={{categoryId}}
 
 ###
 # Search products by keyword
@@ -27,15 +31,15 @@ Content-Type: {{contentType}}
 
 ###
 # Get a specific product by ID
-GET {{baseUrl}}/api/products/1
+GET {{baseUrl}}/api/products/{{productId}}
 
 ###
 # Get product comments by product ID
-GET {{baseUrl}}/api/products/comments?productId=1
+GET {{baseUrl}}/api/products/comments?productId={{productId}}
 
 ###
 # Add a new comment to a product
-POST {{baseUrl}}/api/products/comments?productId=1
+POST {{baseUrl}}/api/products/comments?productId={{productId}}
 Cookie: token={{token}}; httpToken={{httptoken}}
 Content-Type: {{contentType}}
 
@@ -46,11 +50,11 @@ Content-Type: {{contentType}}
 
 ###
 # Get comment details by comment ID
-GET {{baseUrl}}/api/products/comments/1
+GET {{baseUrl}}/api/products/comments/{{commentId}}
 
 ###
 # Update a comment
-PUT {{baseUrl}}/api/products/comments/1
+PUT {{baseUrl}}/api/products/comments/{{commentId}}
 Cookie: token={{token}}; httpToken={{httptoken}}
 Content-Type: {{contentType}}
 
@@ -69,4 +73,4 @@ GET {{baseUrl}}/api/products/populars
 
 ###
 # Stream a product video
-GET {{baseUrl}}/api/products/videos?filename=test-video.mp4
+GET {{baseUrl}}/api/products/videos?filename={{filename}}

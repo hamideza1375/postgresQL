@@ -14,7 +14,6 @@ interface ProductFormData {
     price: number;
     info: string;
     description: string;
-    time: number;
 }
 
  
@@ -26,7 +25,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
         await dbConnect();
         await authAdminRoutes();
 
-        const categoryId = req.nextUrl.searchParams.get('categoryId')
+        const categoryId = req.nextUrl.searchParams.get('categoryId') as string
 
         // دریافت داده‌های فرم از درخواست
         const formdata = await req.formData();
@@ -58,7 +57,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
             description: description,
             imageUrl: filename,
             videoUrl: videoFilename,
-            categoryId: Number(categoryId),
+            categoryId,
             stock: 0,
             rating: 1,
             ratings: 1,
@@ -90,7 +89,7 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
         if (categoryId) {
             products = await Product.findAll({
                 where: {
-                    categoryId: categoryId
+                    categoryId
                 },
                 order: [['createdAt', 'DESC']]
             });

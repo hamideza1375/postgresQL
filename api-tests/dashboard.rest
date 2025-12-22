@@ -1,8 +1,12 @@
 # Dashboard API Tests
 @baseUrl = http://localhost:3000
 @contentType = application/json
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc0FkbWluIjoxLCJ1c2VySWQiOjEwLCJ1c2VybmFtZSI6InRlc3R1c2VyIiwiZW1haWwiOiJ0ZXN0QGV4YW1wbGUuY29tIiwicHJvZHVjdHMiOltdLCJpYXQiOjE3NjYwNzA5OTh9.JxLezpj-I8v0FFRqFdUN9A62yG9h7Xstuewh75xl7uY
-@httptoken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc0FkbWluIjoxLCJ1c2VySWQiOjEwLCJ1c2VybmFtZSI6InRlc3R1c2VyIiwiZW1haWwiOiJ0ZXN0QGV4YW1wbGUuY29tIiwicHJvZHVjdHMiOltdLCJpYXQiOjE3NjYwNzA5OTh9.JxLezpj-I8v0FFRqFdUN9A62yG9h7Xstuewh75xl7uY
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc0FkbWluIjoxLCJ1c2VySWQiOiI1ZTgyYjU2MS1kZmRmLTQwOGYtYWI4MC1hYTRhMzU4YzNmNDUiLCJ1c2VybmFtZSI6InRlc3R1c2VyIiwiZW1haWwiOiJ0ZXN0QGV4YW1wbGUuY29tIiwicHJvZHVjdHMiOltdLCJpYXQiOjE3NjY0MTU5NzV9.SXTYzdlUJzv1sogA7oxdKKTLuHcCBsQw88nJ4GAgaME
+@httptoken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc0FkbWluIjoxLCJ1c2VySWQiOiI1ZTgyYjU2MS1kZmRmLTQwOGYtYWI4MC1hYTRhMzU4YzNmNDUiLCJ1c2VybmFtZSI6InRlc3R1c2VyIiwiZW1haWwiOiJ0ZXN0QGV4YW1wbGUuY29tIiwicHJvZHVjdHMiOltdLCJpYXQiOjE3NjY0MTU5NzV9.SXTYzdlUJzv1sogA7oxdKKTLuHcCBsQw88nJ4GAgaME
+
+@categoryId = cb76b79c-7d1d-4597-9308-2ccb23a51a0a
+
+@productID = 3aa1f89b-1e87-498b-8084-0ec98705edc5
 
 ###
 # Get categories
@@ -29,7 +33,7 @@ Content-Type: image/png
 
 ###
 # update category
-PUT {{baseUrl}}/api/dashboard/products/categories/6
+PUT {{baseUrl}}/api/dashboard/products/categories/{{categoryId}}
 Cookie: token={{token}}; httpToken={{httptoken}}
 Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
 
@@ -52,23 +56,23 @@ Cookie: token={{token}}; httpToken={{httptoken}}
 
 ###
 # Get products by category ID
-GET {{baseUrl}}/api/dashboard/products/products?categoryId=1
+GET {{baseUrl}}/api/dashboard/products/products?categoryId={{categoryId}}
 Cookie: token={{token}}; httpToken={{httptoken}}
 
 ###
 # Create a new product
-POST {{baseUrl}}/api/dashboard/products/products?categoryId=1
+POST {{baseUrl}}/api/dashboard/products/products?categoryId={{categoryId}}
 Cookie: token={{token}}; httpToken={{httptoken}}
 Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
 
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
 Content-Disposition: form-data; name="title"
 
-Test Product
+Test Product2
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
 Content-Disposition: form-data; name="price"
 
-10000
+20000
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
 Content-Disposition: form-data; name="info"
 
@@ -101,12 +105,12 @@ Cookie: token={{token}}; httpToken={{httptoken}}
 
 ###
 # Get product offer information
-GET {{baseUrl}}/api/dashboard/products/products/offer?productID=15
+GET {{baseUrl}}/api/dashboard/products/products/offer?productID={{productID}}
 Cookie: token={{token}}; httpToken={{httptoken}}
 
 ###
 # Update product offer
-PUT {{baseUrl}}/api/dashboard/products/products/offer?productID=15
+PUT {{baseUrl}}/api/dashboard/products/products/offer?productID={{productID}}
 Cookie: token={{token}}; httpToken={{httptoken}}
 Content-Type: {{contentType}}
 
@@ -117,12 +121,12 @@ Content-Type: {{contentType}}
 
 ###
 # Get product information by ID
-GET {{baseUrl}}/api/dashboard/products/products/15
+GET {{baseUrl}}/api/dashboard/products/products/{{productID}}
 Cookie: token={{token}}; httpToken={{httptoken}}
 
 ###
 # Update product information
-PUT {{baseUrl}}/api/dashboard/products/products/15
+PUT {{baseUrl}}/api/dashboard/products/products/{{productID}}
 Cookie: token={{token}}; httpToken={{httptoken}}
 Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
 

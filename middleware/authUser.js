@@ -25,7 +25,6 @@ export default async function authUser(next) {
         const user = decode(cookieStore.get('token')?.value, { complete: true });
         const httpUser = decode(cookieStore.get('httpToken')?.value, { complete: true });
         
-
         // بررسی اینکه آیا توکن httpUser وجود دارد یا خیر
         if (!httpUser) return reject({ message: 'ابتدا وارد حسابتان شوید' , status: 401 });
         

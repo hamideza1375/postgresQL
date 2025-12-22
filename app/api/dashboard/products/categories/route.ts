@@ -1,17 +1,17 @@
 import authAdminRoutes from '@/middleware/authAdminRoutes';
 import errorHandling from '@/middleware/errorHandling';
 import Category from '@/models/CategoriesModel';
-import {dbConnect} from '@/utils/dbConnect';
+import { dbConnect } from '@/utils/dbConnect';
 import { writeFile } from 'fs/promises';
 import { NextRequest, NextResponse } from 'next/server';
 import path from 'path';
 
 // تابع POST برای ایجاد دسته‌بندی جدید
 export async function POST(req: NextRequest): Promise<NextResponse> {
-    return errorHandling(async()=>{
+    return errorHandling(async () => {
         await dbConnect();
         await authAdminRoutes();
-        
+
         const formData = await req.formData();
         const file = formData.get('image') as File | null;
         const title = formData.get('title') as string | null;
@@ -46,16 +46,16 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
             );
         }
 
-        const category = await Category.create({ 
-            title, 
+        const category = await Category.create({
+            title,
             imageUrl: filename,
             isActive: true
         });
 
         return NextResponse.json(
-            { 
-                message: 'دسته‌بندی با موفقیت ایجاد شد', 
-                data: category 
+            {
+                message: 'دسته‌بندی با موفقیت ایجاد شد',
+                data: category
             },
             { status: 201 }
         );
@@ -64,26 +64,16 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
 
 // تابع GET برای دریافت دسته‌بندی‌ها
 export async function GET(req: NextRequest): Promise<NextResponse> {
-    try {
+    return errorHandling(async () => {
         await dbConnect();
         await authAdminRoutes();
-        
+
         const categories = await Category.findAll({
             where: {
                 isActive: true
             }
         });
-        
+
         return NextResponse.json(categories);
-    } catch (error: any) {
-        console.error('خطا در دریافت دسته‌بندی‌ها:', error);
-        return NextResponse.json(
-            { 
-                error: error?.message || 'خطای سرور' 
-            },
-            { 
-                status: error?.status || 500 
-            }
-        );
-    }
+    })
 }

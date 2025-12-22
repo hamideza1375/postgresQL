@@ -51,9 +51,6 @@ class User extends Model<UserAttributes> implements UserAttributes {
   public async comparePassword(candidatePassword: string): Promise<void> {
     const [salt, hashedPassword] = this.password.split(':');
 
-    console.log('hashedPassword', hashedPassword);
-    console.log('-----------------');
-
     try {
       const derivedKey = await new Promise<string>((resolve, reject) => {
         crypto.scrypt(candidatePassword, salt, keyLength, { N, r, p }, (err, derivedKey) => {
@@ -61,10 +58,6 @@ class User extends Model<UserAttributes> implements UserAttributes {
           resolve(derivedKey.toString('hex'));
         });
       });
-
-      console.log('-----------------');
-      console.log('derivedKey', derivedKey);
-
 
       if (hashedPassword !== derivedKey) {
         throw new CustomError({ message: 'مشخصات وارد شده اشتباه است', status: 400 });
@@ -79,10 +72,8 @@ User.init(
   {
     id: {
       type: DataTypes.UUID,
-      autoIncrement: true,
+      defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
-      // type: DataTypes.UUID,
-      // defaultValue: DataTypes.UUIDV4
     },
     username: {
       type: DataTypes.STRING,

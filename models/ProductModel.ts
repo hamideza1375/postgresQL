@@ -1,7 +1,9 @@
 import { db } from '@/utils/dbConnect';
 import { DataTypes, Model } from 'sequelize';
 import User from './UsersModel';
-
+import '@/models/UsersModel';
+import '@/models/ProductModel';
+import '@/models/CategoriesModel';
 // تعریف انواع مختلف برای محصولات
 
 
@@ -28,7 +30,7 @@ Answer.init(
   {
     id: {
       type: DataTypes.UUID,
-      autoIncrement: true,
+      defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
     },
     username: {
@@ -93,7 +95,7 @@ Comment.init(
   {
     id: {
       type: DataTypes.UUID,
-      autoIncrement: true,
+      defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
     },
     username: {
@@ -209,7 +211,7 @@ Product.init(
   {
     id: {
       type: DataTypes.UUID,
-      autoIncrement: true,
+      defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
     },
     urls: {
@@ -235,7 +237,8 @@ Product.init(
       },
     },
     price: {
-      type: DataTypes.DECIMAL(10, 2),
+      // type: DataTypes.DECIMAL(10, 2),
+      type: DataTypes.NUMBER,
       allowNull: false,
       validate: {
         min: {

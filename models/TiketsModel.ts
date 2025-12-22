@@ -1,5 +1,6 @@
 import { db } from '@/utils/dbConnect';
 import { DataTypes, Model } from 'sequelize';
+import '@/models/UsersModel';
 
 // تعریف انواع مختلف برای تیکت
 export type TicketCategory = 'Technical' | 'Reversal' | 'Other';
@@ -30,7 +31,7 @@ AnswerTicket.init(
   {
     id: {
       type: DataTypes.UUID,
-      autoIncrement: true,
+      defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
     },
     message: {
@@ -96,7 +97,7 @@ Ticket.init(
   {
     id: {
       type: DataTypes.UUID,
-      autoIncrement: true,
+      defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
     },
     title: {

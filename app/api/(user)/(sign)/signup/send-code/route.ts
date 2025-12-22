@@ -39,7 +39,6 @@ export async function POST(req: NextRequest) {
       raw: true // دریافت داده خام به جای نمونه مدل - معادل lean() در Mongoose
     });
 
-    console.log(email)
 
     // if (user) {
     //   return NextResponse.json(

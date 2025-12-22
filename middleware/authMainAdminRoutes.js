@@ -32,7 +32,8 @@ export default async function authMainAdminRoutes() {
         if (!user || !httpUser) reject({ message: 'ابتدا وارد حساب خود شوید', status: 401 });
         // بررسی اینکه آیا کاربر ادمین است یا خیر
         if (!user.payload.isAdmin || !httpUser.payload.isAdmin) reject({ message: 'شما اجازه ی دسترسی ندارید', status: 403 });
-        const UserModel = await UsersModel.findByPk(httpUser.payload.userId,{raw: true});
+        const UserModel = await UsersModel.findByPk(httpUser.payload.userId,{raw: true})
+        .catch(err => reject({ message: err + ' خطایی در سرور رخ داده است', status: 500 }));
         // بررسی اینکه آیا کاربر ادمین معتبر است یا خیر
         if (!UserModel?.isAdmin || UserModel?.isAdmin > 2) reject({ message: 'شما اجازه ی دسترسی ندارید', status: 403 });
       

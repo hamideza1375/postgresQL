@@ -23,13 +23,13 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
         await authUserRoutes();
         
         // Get user info from headers
-        const _user = getUser(req)
+        const _user = getUser(req)        
 
         // Get user's last successful payments sorted by date
         const lastPayment = await PaymentsModel.findAll({ 
             where: {
                 success: true, 
-                userId: Number(_user.userId)
+                userId: _user.userId
             },
             order: [['createdAt', 'DESC']]
         });

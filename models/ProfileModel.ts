@@ -1,5 +1,6 @@
 import { db } from '@/utils/dbConnect';
 import { DataTypes, Model } from 'sequelize';
+import '@/models/UsersModel';
 
 // Interface for Profile attributes
 interface ProfileAttributes {
@@ -19,7 +20,7 @@ Profile.init(
   {
     id: {
       type: DataTypes.UUID,
-      autoIncrement: true,
+      defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
       // field: '_id',
     },

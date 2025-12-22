@@ -5,8 +5,8 @@
 @password = TestPassword123
 @changePassword = TestPassword123
 @username = testuser
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc0FkbWluIjoxLCJ1c2VySWQiOjEwLCJ1c2VybmFtZSI6InRlc3R1c2VyIiwiZW1haWwiOiJ0ZXN0QGV4YW1wbGUuY29tIiwicHJvZHVjdHMiOltdLCJpYXQiOjE3NjYwNzA5OTh9.JxLezpj-I8v0FFRqFdUN9A62yG9h7Xstuewh75xl7uY
-@httptoken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc0FkbWluIjoxLCJ1c2VySWQiOjEwLCJ1c2VybmFtZSI6InRlc3R1c2VyIiwiZW1haWwiOiJ0ZXN0QGV4YW1wbGUuY29tIiwicHJvZHVjdHMiOltdLCJpYXQiOjE3NjYwNzA5OTh9.JxLezpj-I8v0FFRqFdUN9A62yG9h7Xstuewh75xl7uY
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc0FkbWluIjoxLCJ1c2VySWQiOiI1ZTgyYjU2MS1kZmRmLTQwOGYtYWI4MC1hYTRhMzU4YzNmNDUiLCJ1c2VybmFtZSI6InRlc3R1c2VyIiwiZW1haWwiOiJ0ZXN0QGV4YW1wbGUuY29tIiwicHJvZHVjdHMiOltdLCJpYXQiOjE3NjY0MTU5NzV9.SXTYzdlUJzv1sogA7oxdKKTLuHcCBsQw88nJ4GAgaME
+@httptoken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc0FkbWluIjoxLCJ1c2VySWQiOiI1ZTgyYjU2MS1kZmRmLTQwOGYtYWI4MC1hYTRhMzU4YzNmNDUiLCJ1c2VybmFtZSI6InRlc3R1c2VyIiwiZW1haWwiOiJ0ZXN0QGV4YW1wbGUuY29tIiwicHJvZHVjdHMiOltdLCJpYXQiOjE3NjY0MTU5NzV9.SXTYzdlUJzv1sogA7oxdKKTLuHcCBsQw88nJ4GAgaME
 
 ###
 # Sign Up - Send Verification Code
@@ -73,7 +73,7 @@ Cookie: token={{token}}; httpToken={{httptoken}}
 Content-Type: {{contentType}}
 
 {
-  "password": "{{password}}"
+  "password": "{{changePassword}}"
 }
 
 ###
@@ -85,7 +85,7 @@ Content-Type: {{contentType}}
 {
   "code": "12345",
   "username": "updatedusername",
-  "newPassword": "{{{{changePassword}}}}"
+  "newPassword": "{{changePassword}}"
 }
 
 ###
