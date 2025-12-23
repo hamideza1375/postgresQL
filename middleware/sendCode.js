@@ -1,5 +1,5 @@
 import nodemailer from 'nodemailer';
-import cache from '@/utils/node_cache.js';
+import cache from '@/utils/node_cache';
 import { cookies } from 'next/headers';
 
 /**
@@ -88,7 +88,12 @@ const isProduction = process.env.NODE_ENV === 'production';
 export default function sendCode(to = '', path = '') {
     return new Promise(async (resolve, reject) => {
         if (isProduction) {
-            await production_sendCode(to, path);
+            try {
+                const result = await production_sendCode(to, path);
+                resolve(result);
+            } catch (error) {
+                reject(error);
+            }
         } else {
             const cookieStore = await cookies();
 
@@ -117,7 +122,8 @@ export const checkCode = (to, code) => {
         if (isProduction) {
             if (cache.get('code' + to) != code) reject({ message: 'کد وارد شده اشتباه هست', status: 400 });
             else resolve();
-        } else {
+        } 
+        else {
             const cookieStore = await cookies();
             if (cookieStore.get('code' + to)?.value != code)
                 reject({ message: 'کد وارد شده اشتباه هست', status: 400 });

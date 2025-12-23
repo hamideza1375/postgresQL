@@ -5,7 +5,7 @@ import UsersModel from '@/models/UsersModel';
 import { CustomError } from '@/utils/CustomError';
 import getUser from '@/utils/getUser';
 import { getScryptParams } from '@/utils/getScryptParams';
-import cache from '@/utils/node_cache.js';
+import cache from '@/utils/node_cach';
 import crypto from 'crypto';
 import { sign } from 'jsonwebtoken';
 import { cookies } from 'next/headers';

@@ -3,7 +3,7 @@ import rateLimit from '@/middleware/rateLimit';
 import sendCode, { checkCode } from '@/middleware/sendCode';
 import User from '@/models/UsersModel';
 import { dbConnect } from '@/utils/dbConnect';
-import cache from '@/utils/node_cache.js';
+import cache from '@/utils/node_cache';
 import { ChangePasswordValidator } from '@/validator/AuthValidator';
 import { cookies } from 'next/headers';
 import { NextResponse, type NextRequest } from 'next/server';
