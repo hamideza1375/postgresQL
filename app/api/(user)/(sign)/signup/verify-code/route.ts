@@ -13,13 +13,10 @@ interface RequestBody {
     code: number;
 }
 
-interface Products {
-    productId: string;
-    version: number;
-}
+interface Products { productId: string, version: string }
 
 interface UserToken {
-    userId?: number;
+    userId?: string;
     username?: string;
     email: string;
     products?: Products[];
@@ -77,7 +74,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
 
         // Create JWT tokens
         const forToken: UserToken = {
-            userId: user.id,
+            userId: 'user.id',
             username: user.username,
             email: user.email,
             products: user.products

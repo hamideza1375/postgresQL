@@ -12,7 +12,7 @@ interface RequestBody {
 }
 
 interface UserToken {
-    userId?: number;
+    userId?: string;
     username?: string;
     email: string;
     products?: any[];
@@ -31,10 +31,6 @@ export async function POST(req: NextRequest) {
 
         const usera = await User.findAll()
 
-        console.log('usera', usera);
-        
-
-
         // جستجوی کاربر در دیتابیس بر اساس ایمیل
         const user = await User.findOne({ 
             where: {
@@ -47,7 +43,6 @@ export async function POST(req: NextRequest) {
             return res.json({ message: 'مشخصات اشتباه هست' }, { status: 400 });
         }
 
-        // استفاده از middleware محدودیت نرخ درخواست (Rate Limit)
             // بررسی صحت رمز عبور
             await user.comparePassword(password);
             

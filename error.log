@@ -5,3 +5,11 @@
 {"message":"Error: ایمیل وارد شده تکراری است","file":"C:\\Users\\rezaa\\Desktop\\grafana-next\\.next\\dev\\server\\chunks\\0497d_sequelize_0b037abc._.js","line":"20578","date":"۱۴۰۴/۱۰/۱"}
 {"message":"Error: operator does not exist: uuid = integer","file":"C:\\Users\\rezaa\\Desktop\\grafana-next\\.next\\dev\\server\\chunks\\0497d_sequelize_0b037abc._.js","line":"20578","date":"۱۴۰۴/۱۰/۱"}
 {"message":"Error: operator does not exist: uuid = integer","file":"C:\\Users\\rezaa\\Desktop\\grafana-next\\.next\\dev\\server\\chunks\\0497d_sequelize_0b037abc._.js","line":"20578","date":"۱۴۰۴/۱۰/۱"}
+{"message":"Error: ایمیل وارد شده تکراری است","file":"C:\\Users\\rezaa\\Desktop\\grafana-next\\.next\\dev\\server\\chunks\\0497d_sequelize_0b037abc._.js","line":"20578","date":"۱۴۰۴/۱۰/۳"}
+{"message":"Error: ایمیل وارد شده تکراری است","file":"C:\\Users\\rezaa\\Desktop\\grafana-next\\.next\\dev\\server\\chunks\\0497d_sequelize_0b037abc._.js","line":"20578","date":"۱۴۰۴/۱۰/۳"}
+{"message":"Error: خطا در بررسی رمز عبور","file":"C:\\Users\\rezaa\\Desktop\\grafana-next\\.next\\dev\\server\\chunks\\[root-of-the-server]__1845fb84._.js","line":"624","date":"۱۴۰۴/۱۰/۳"}
+{"message":"Error: خطا در بررسی رمز عبور","file":"C:\\Users\\rezaa\\Desktop\\grafana-next\\.next\\dev\\server\\chunks\\[root-of-the-server]__1845fb84._.js","line":"624","date":"۱۴۰۴/۱۰/۳"}
+{"message":"Error: شما اجازه ی دسترسی ندارید","file":"unknown","line":"unknown","date":"۱۴۰۴/۱۰/۳"}
+{"message":"Error: شما اجازه ی دسترسی ندارید","file":"unknown","line":"unknown","date":"۱۴۰۴/۱۰/۳"}
+{"message":"Error: insert or update on table \"comments\" violates foreign key constraint \"comments_userId_fkey\"","file":"C:\\Users\\rezaa\\Desktop\\grafana-next\\.next\\dev\\server\\chunks\\0497d_sequelize_0b037abc._.js","line":"20578","date":"۱۴۰۴/۱۰/۳"}
+{"message":"Error: insert or update on table \"comments\" violates foreign key constraint \"comments_userId_fkey\"","file":"C:\\Users\\rezaa\\Desktop\\grafana-next\\.next\\dev\\server\\chunks\\0497d_sequelize_0b037abc._.js","line":"20578","date":"۱۴۰۴/۱۰/۳"}

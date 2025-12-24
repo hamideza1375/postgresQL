@@ -119,6 +119,8 @@ export async function PUT(req: NextRequest): Promise<NextResponse> {
     }
 
     user.password = newPassword;
+    console.log(22, user.password);
+
     await user.save();
 
 

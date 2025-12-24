@@ -10,13 +10,14 @@ type PaymentStatus = 'pending' | 'processing' | 'shipped' | 'delivered' | 'cance
 interface PaymentAttributes {
   id?: string;
   representativeId?: string;
-  version: number;
+  version?: number;
   price: number;
   title: string;
   authority?: string;
-  RefID?: string;
+  RefID?: number;
   success: boolean;
   userId: string;
+  productId: string; // Array of product IDs
   status: PaymentStatus;
 }
 
@@ -28,10 +29,13 @@ class Payment extends Model<PaymentAttributes> implements PaymentAttributes {
   declare price: number;
   declare title: string;
   declare authority: string;
-  declare RefID: string;
+  declare RefID: number;
   declare success: boolean;
   declare userId: string;
+  declare productId: string;
   declare status: PaymentStatus;
+  declare createdAt: Date;
+  declare updatedAt: Date;
 }
 
 Payment.init(
@@ -66,7 +70,7 @@ Payment.init(
       allowNull: true,
     },
     RefID: {
-      type: DataTypes.STRING,
+      type: DataTypes.NUMBER,
       allowNull: true,
     },
     success: {
@@ -81,6 +85,7 @@ Payment.init(
         key: 'id',
       },
     },
+    productId: DataTypes.UUID,
     status: {
       type: DataTypes.ENUM('pending', 'processing', 'shipped', 'delivered', 'cancelled'),
       defaultValue: 'pending',
@@ -94,68 +99,4 @@ Payment.init(
   }
 );
 
-// جدول میانی برای رابطه many-to-many بین Payment و Product
-interface PaymentProductAttributes {
-  id: string;
-  paymentId: string;
-  productId: string;
-}
-
-class PaymentProduct extends Model<PaymentProductAttributes> implements PaymentProductAttributes {
-  declare id: string;
-  declare paymentId: string;
-  declare productId: string;
-}
-
-PaymentProduct.init(
-  {
-    id: {
-      type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4,
-      primaryKey: true,
-    },
-    paymentId: {
-      type: DataTypes.UUID,
-      allowNull: false,
-      references: {
-        model: 'payments',
-        key: 'id',
-      },
-    },
-    productId: {
-      type: DataTypes.UUID,
-      allowNull: false,
-      references: {
-        model: 'products',
-        key: 'id',
-      },
-    },
-  },
-  {
-    sequelize: db,
-    modelName: 'PaymentProduct',
-    tableName: 'payment_products',
-    timestamps: false,
-  }
-);
-
-// تعریف رابطه بین جداول
-Payment.belongsToMany(Product, {
-  through: PaymentProduct,
-  foreignKey: 'paymentId',
-  otherKey: 'productId',
-  as: 'products',
-});
-
-Product.belongsToMany(Payment, {
-  through: PaymentProduct,
-  foreignKey: 'productId',
-  otherKey: 'paymentId',
-  as: 'payments',
-});
-
-// وارد کردن مدل Product برای تعریف رابطه
-import { Product } from './ProductModel';
-
 export default Payment;
-export { Payment, PaymentProduct };

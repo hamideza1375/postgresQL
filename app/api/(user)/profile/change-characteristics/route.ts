@@ -2,15 +2,12 @@ import errorHandling from '@/middleware/errorHandling';
 import rateLimit from '@/middleware/rateLimit';
 import sendCode, { checkCode } from '@/middleware/sendCode';
 import UsersModel from '@/models/UsersModel';
-import { CustomError } from '@/utils/CustomError';
+import { dbConnect } from '@/utils/dbConnect';
 import getUser from '@/utils/getUser';
-import { getScryptParams } from '@/utils/getScryptParams';
-import cache from '@/utils/node_cach';
-import crypto from 'crypto';
+import cache from '@/utils/node_cache';
 import { sign } from 'jsonwebtoken';
 import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
-import { dbConnect } from '@/utils/dbConnect';
 
 
 interface RequestBodyPOST {

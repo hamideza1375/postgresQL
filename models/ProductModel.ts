@@ -160,6 +160,7 @@ Comment.init(
 interface ProductAttributes {
   id?: string;
   urls?: string;
+  version?: number;
   title: string;
   info: string;
   price: number;
@@ -185,6 +186,7 @@ interface ProductAttributes {
 class Product extends Model<ProductAttributes> implements ProductAttributes {
   declare id: string;
   declare urls: string;
+  declare version: number;
   declare title: string;
   declare info: string;
   declare price: number;
@@ -217,6 +219,11 @@ Product.init(
     urls: {
       type: DataTypes.STRING,
       allowNull: true,
+    },
+    version: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue:1
     },
     title: {
       type: DataTypes.STRING,

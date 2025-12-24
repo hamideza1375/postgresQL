@@ -12,7 +12,7 @@ interface RequestBody {
 interface UserExistsResponse {
   message: string;
 }
-
+ 
 export async function POST(req: NextRequest) {
   return errorHandling(async (): Promise<NextResponse> => {
     await dbConnect();
@@ -20,12 +20,12 @@ export async function POST(req: NextRequest) {
     const cookieStore = await cookies();
 
     // Check if user is already logged in
-    // if (cookieStore.get('token') || cookieStore.get('httpToken')) {
-    //   return NextResponse.json(
-    //     { message: 'شما در حال حاضر یک حساب فعال دارید' },
-    //     { status: 429 }
-    //   );
-    // }
+    if (cookieStore.get('token') || cookieStore.get('httpToken')) {
+      return NextResponse.json(
+        { message: 'شما در حال حاضر یک حساب فعال دارید' },
+        { status: 429 }
+      );
+    }
 
     // Parse request body
     const { email }: RequestBody = await req.json();
@@ -40,25 +40,20 @@ export async function POST(req: NextRequest) {
     });
 
 
-    // if (user) {
-    //   return NextResponse.json(
-    //     { message: 'شما قبلاً ثبت‌نام کرده‌اید' },
-    //     { status: 400 }
-    //   );
-    // }
-
-    console.log('----------------------------------');
-    console.log(email);
-    console.log('----------------------------------');
-
+    if (user) {
+      return NextResponse.json(
+        { message: 'این ایمیل قبلاً ثبت شده است' },
+        { status: 400 }
+      );
+    }
 
     // Check resend time limit
-    // if (cookieStore.get('ResendTime')) {
-    //   return NextResponse.json(
-    //     { message: 'تا اتمام سه دقیقه صبر کنید' },
-    //     { status: 429 }
-    //   );
-    // }
+    if (cookieStore.get('ResendTime')) {
+      return NextResponse.json(
+        { message: 'تا اتمام سه دقیقه صبر کنید' },
+        { status: 429 }
+      );
+    }
 
     
     
